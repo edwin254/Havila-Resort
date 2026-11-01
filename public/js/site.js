@@ -561,6 +561,23 @@ function runMotion() {
     gsap.from(fall.querySelectorAll('.fall-copy>.lead,.fall-copy>.btn'), { y: 40, autoAlpha: 0, stagger: .1, duration: .9, ease: 'power3.out', scrollTrigger: { trigger: fall, start: 'top 30%', once: true } });
   }
 
+  // The pile: real photos are hurled onto the table one after another while the screen is pinned
+  const pile = document.querySelector('[data-pile]');
+  if (pile) {
+    const cards = gsap.utils.toArray('.pile-card', pile);
+    const landed = [-4, 3, -2, 5, -5, 3];
+    const tl = gsap.timeline({ scrollTrigger: { trigger: pile, start: 'top top', end: 'bottom bottom', scrub: .35 } });
+    cards.forEach((c, i) => {
+      const dir = i % 2 ? 1 : -1;
+      const start = () => ({ x: dir * innerWidth * 1.15, y: (i % 3 - 1) * innerHeight * .5, rotation: dir * 38, scale: 1.5 });
+      if (i === 0) { gsap.set(c, { rotation: landed[0] }); gsap.from(c, { ...start(), ease: 'expo.out', duration: 1.1, scrollTrigger: { trigger: pile, start: 'top 75%', toggleActions: 'play none none reverse' } }); return; }
+      tl.fromTo(c, start(), { x: dir * Math.min(innerWidth * .05, 60), y: (i % 2 ? -1 : 1) * Math.min(innerHeight * .03, 24), rotation: landed[i], scale: 1, ease: 'power4.out', duration: 1 }, i - 1);
+      tl.to(cards[i - 1], { scale: .92, duration: .6, ease: 'power2.out' }, i - .9);
+      tl.fromTo(c, { filter: 'brightness(1.22)' }, { filter: 'brightness(1)', duration: .5, ease: 'none' }, i - .6);
+    });
+    tl.to({}, { duration: .5 });
+  }
+
   // Closing line swells as it arrives
   document.querySelectorAll('.close h2').forEach((h) => {
     gsap.fromTo(h, { scale: .72 }, { scale: 1, ease: 'none', scrollTrigger: { trigger: h, start: 'top bottom', end: 'center center', scrub: .4 } });
