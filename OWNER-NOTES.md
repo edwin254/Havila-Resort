@@ -24,7 +24,7 @@ The conference capacity is deliberately left out because no figure was available
 
 **Real Havila photos (15).** Downloaded from the resort's Expedia-group listing at web resolution. Ask the owner for the originals, and for confirmation that the site may use them.
 
-**Sample photos (6), tagged on the site.** Rafting, kayaking and camping shots from other places. Quad biking, archery and the night camp are painted panels until real photos exist. Replace them with a real shoot. Files and licences are listed in `src/data.mjs` and on `/credits/`. Licences allow this use with credit, so keep that page until they're replaced.
+**Sample photos, tagged on the site.** Most of the imagery on the home, Stay, Barizi and Events pages is now high-quality stock from other places, including the hero waterfall, room photos, food and weddings. Every one must be replaced with real Havila photos before launch, and the owner should be told they are placeholders. Files are in `src/photos-raw/sample/`: keep the same file name when replacing, and the site picks it up on rebuild. Licences are listed in `src/data.mjs` and on `/credits/`.
 
 **Most wanted from a shoot:** Kirengete Falls (currently only painted), the islands, Havila's own rafts and quads, the campsite, and the view from Barizi.
 
