@@ -521,3 +521,6 @@ html:not(.motion) .offer-pic{position:absolute;inset:0;transform:none!important}
 #activity-picks input:checked+.box{transform:rotate(-1.6deg) scale(1.02);box-shadow:0 0 0 4px var(--glacier-deep);background:var(--stone)}
 #activity-picks input:checked+.box img{filter:saturate(1.15) brightness(.9)}
 #activity-picks input:checked+.box::after{background:var(--glacier) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath d='M3 8.5l3.2 3L13 5' fill='none' stroke='%230D1312' stroke-width='2'/%3E%3C/svg%3E") center/70% no-repeat;box-shadow:none;transform:scale(1.15)}
+/* The plan is a ticket with punched edges */
+.summary{border-radius:18px;-webkit-mask:radial-gradient(circle 13px at 0 118px,transparent 98%,#000) left/51% 100% no-repeat,radial-gradient(circle 13px at 100% 118px,transparent 98%,#000) right/51% 100% no-repeat;mask:radial-gradient(circle 13px at 0 118px,transparent 98%,#000) left/51% 100% no-repeat,radial-gradient(circle 13px at 100% 118px,transparent 98%,#000) right/51% 100% no-repeat}
+.summary h2{padding-bottom:.6em;margin-bottom:.5em;border-bottom:2px dashed rgba(237,232,220,.35)}
