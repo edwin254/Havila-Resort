@@ -560,3 +560,15 @@ html:not(.motion) .skip-reel,html:not(.motion) .scroll-cue,html:not(.motion) .of
 .pile-cap{background:var(--ink);color:var(--bone)}
 .flash{background:var(--ink);color:var(--glacier)}
 .flash small{color:var(--bone)}
+/* Legibility on photos */
+#activity-picks .box::before{content:"";position:absolute;inset:0;z-index:1;background:linear-gradient(transparent 35%,rgba(13,19,18,.92))}
+#activity-picks .pick-name,#activity-picks .box em,#activity-picks .box::after{z-index:2}
+#activity-picks .box em{font-size:.9rem}
+.flip .band-pic::after{background:rgba(13,19,18,.52)}
+.fall-pic:first-of-type img{filter:brightness(.6) saturate(1.05)!important}
+.sentence .field input::placeholder{color:rgba(14,107,92,.85)}
+.sentence .field input,.sentence .field select{min-height:48px}
+.sum-total{flex-wrap:wrap}
+.sum-total span:last-child{white-space:nowrap;margin-left:auto}
+.plan-bar-go{border-radius:99px;padding-inline:1em}
+.concept{max-width:70ch;margin-inline:calc((100% - min(100% - 2*var(--gutter),var(--wide)))/2) auto}
