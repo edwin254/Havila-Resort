@@ -590,6 +590,12 @@ function runMotion() {
     gsap.from(c.querySelector('.btn'), { scale: 0, rotation: -12, duration: .7, ease: 'back.out(2.4)', scrollTrigger: { trigger: c, start: 'top 85%', once: true } });
   });
 
+  // Fast scrolling kicks every picture in view
+  const kicked = gsap.utils.toArray('.strip-track');
+  let kick = 0;
+  ScrollTrigger.create({ start: 0, end: 'max', onUpdate: (s) => { kick = gsap.utils.clamp(-9, 9, s.getVelocity() / 260); } });
+  if (kicked.length) gsap.ticker.add(() => { gsap.set(kicked, { skewX: -kick }); kick *= .9; });
+
   // Closing line swells as it arrives
   document.querySelectorAll('.close h2').forEach((h) => {
     gsap.fromTo(h, { scale: .72 }, { scale: 1, ease: 'none', scrollTrigger: { trigger: h, start: 'top bottom', end: 'center center', scrub: .4 } });
