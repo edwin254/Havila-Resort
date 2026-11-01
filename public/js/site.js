@@ -96,6 +96,94 @@ document.querySelectorAll('[data-add]').forEach((btn) => {
   });
 });
 
+// The river: one unbroken road of water with a raft riding it as you scroll.
+const page = document.querySelector('.river-page');
+if (page) {
+  const NS = 'http://www.w3.org/2000/svg';
+  const svg = document.createElementNS(NS, 'svg');
+  svg.classList.add('river-svg');
+  svg.setAttribute('aria-hidden', 'true');
+  const layers = [['#0D1312', 1.28], ['#2A7F8E', 1], ['#EDE8DC', .12]].map(([color, scale]) => {
+    const p = document.createElementNS(NS, 'path');
+    p.setAttribute('stroke', color);
+    p.dataset.scale = scale;
+    svg.append(p);
+    return p;
+  });
+  layers[2].setAttribute('stroke-dasharray', '60 120');
+  page.prepend(svg);
+  const raft = document.createElement('div');
+  raft.className = 'river-raft';
+  raft.setAttribute('aria-hidden', 'true');
+  raft.innerHTML = '<svg viewBox="0 0 120 72"><path d="M6 44c0-7 6-10 12-10h84c7 0 12 4 12 10s-6 14-14 14H20C12 58 6 51 6 44z" fill="#BFEBD9" stroke="#0D1312" stroke-width="3"/><g fill="#EDE8DC"><circle cx="38" cy="21" r="8"/><circle cx="62" cy="19" r="8"/><circle cx="86" cy="21" r="8"/></g><g fill="#0D1312"><rect x="30" y="28" width="16" height="8"/><rect x="54" y="26" width="16" height="10"/><rect x="78" y="28" width="16" height="8"/></g><path d="M26 22 12 66M74 20l18 46" stroke="#EDE8DC" stroke-width="3"/></svg>';
+  if (!reduce) page.append(raft);
+  let total = 0;
+  let mobile = false;
+  const trace = () => {
+    mobile = innerWidth <= 820;
+    const width = page.clientWidth;
+    const pageTop = page.getBoundingClientRect().top + scrollY;
+    const box = (el) => { const r = el.getBoundingClientRect(); return { top: r.top + scrollY - pageTop, bottom: r.bottom + scrollY - pageTop, height: r.height }; };
+    let anchors;
+    if (mobile) {
+      // On phones the river hugs alternating edges and crosses in the gap between sections.
+      anchors = [];
+      [...page.querySelectorAll(':scope > section')].forEach((sec, i) => {
+        const r = box(sec);
+        const x = i % 2 ? 7 : width - 7;
+        anchors.push({ x, y: r.top + 62 }, { x, y: r.bottom - 62 });
+      });
+    } else {
+      anchors = [...page.querySelectorAll('[data-river]')].map((el) => {
+        const r = box(el);
+        return { x: Number(el.dataset.river.split(',')[0]) * width / 100, y: r.top + r.height / 2 };
+      }).sort((a, b) => a.y - b.y);
+    }
+    if (anchors.length < 2) return;
+    let d = `M${anchors[0].x} ${anchors[0].y}`;
+    for (let i = 0; i < anchors.length - 1; i++) {
+      const a = anchors[i], b = anchors[i + 1], k = (b.y - a.y) * .5;
+      d += ` C${a.x} ${a.y + k} ${b.x} ${b.y - k} ${b.x} ${b.y}`;
+    }
+    const stroke = mobile ? 10 : Math.max(16, Math.min(30, width * .022));
+    layers.forEach((p) => { p.setAttribute('d', d); p.setAttribute('stroke-width', stroke * p.dataset.scale); });
+    svg.style.height = `${page.scrollHeight}px`;
+    svg.setAttribute('viewBox', `0 0 ${width} ${page.scrollHeight}`);
+    svg.setAttribute('preserveAspectRatio', 'none');
+    total = layers[1].getTotalLength();
+    place();
+  };
+  // Find the point on the river level with the reading line, so the raft keeps pace with the page.
+  const place = () => {
+    if (!total || !raft.isConnected) return;
+    const target = innerHeight * .55 - page.getBoundingClientRect().top;
+    let lo = 0, hi = total;
+    for (let i = 0; i < 18; i++) {
+      const mid = (lo + hi) / 2;
+      if (layers[1].getPointAtLength(mid).y < target) lo = mid; else hi = mid;
+    }
+    const p = layers[1].getPointAtLength(lo);
+    const q = layers[1].getPointAtLength(Math.min(total, lo + 4));
+    const tilt = Math.max(-16, Math.min(16, (q.x - p.x) * 3));
+    const w = raft.offsetWidth;
+    const x = Math.max(w / 2, Math.min(page.clientWidth - w / 2, p.x));
+    raft.style.transform = `translate(${x - w / 2}px,${p.y - w * .42}px) rotate(${tilt}deg)`;
+    // On phones the raft rides small behind the text on the edge, and grows while crossing.
+    raft.classList.toggle('rail', mobile && (p.x < 24 || p.x > page.clientWidth - 24));
+    layers[2].setAttribute('stroke-dashoffset', -lo * .6);
+  };
+  let tick = false;
+  addEventListener('scroll', () => {
+    if (tick) return;
+    tick = true;
+    requestAnimationFrame(() => { place(); tick = false; });
+  }, { passive: true });
+  new ResizeObserver(trace).observe(page);
+  addEventListener('load', trace);
+  document.fonts?.ready.then(trace);
+  trace();
+}
+
 // Motion system. Everything is visible without it; tweens animate from hidden only once GSAP runs.
 function splitWords(el) {
   const label = [...el.childNodes].map((c) => c.textContent).join(' ').trim().replace(/\s+/g, ' ');
