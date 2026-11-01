@@ -145,3 +145,13 @@ h3,.as-h3{font-size:clamp(1.5rem,1.2rem + 1.1vw,2.3rem);margin-bottom:.4em;lette
 .fall-stage{z-index:0}
 @media (max-width:820px){.river-page .sec{padding-block:88px}.river-raft{z-index:4;width:76px}}
 
+/* The fall into night */
+.fall{position:relative;height:100svh}
+.motion .fall{height:300svh}
+.fall-stage{position:sticky;top:0;height:100svh;overflow:hidden;background:var(--stone)}
+.fall-pic{position:absolute!important;inset:0}
+.fall-pic img{filter:saturate(1.05) contrast(1.04)!important}
+.fall-shade{position:absolute;inset:0;background:linear-gradient(180deg,rgba(13,19,18,.2),rgba(13,19,18,.85));z-index:2}
+.fall-copy{position:absolute;left:var(--gutter);right:var(--gutter);bottom:clamp(84px,10vh,90px);z-index:3}
+.fall .sample-tag{z-index:4}
+
