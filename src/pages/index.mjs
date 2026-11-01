@@ -1,150 +1,139 @@
 import { contact, rooms, meals, camping, ownTent, activities, photos } from '../data.mjs';
 import { photo, waFree } from '../layout.mjs';
-import { heroScene, routeMap, paintedQuad, paintedArchery, paintedCamp, paintedRapids } from './scene.mjs';
-
-const paint = (svg, cls = '') => `<figure class="pic ${cls}">${svg}</figure>`;
+import { routeMap } from './scene.mjs';
 
 const kes = (n) => `KES ${n.toLocaleString('en-KE')}`;
 const usd = (n) => `US$${n.toLocaleString('en-KE')}`;
 const price = (r, n) => (r == null ? 'Ask us' : `<span data-res data-resident="${kes(r)}" data-non="${usd(n)}">${kes(r)}</span>`);
-const edge = (color) => `<svg class="edge edge-top" viewBox="0 0 1440 60" preserveAspectRatio="none" aria-hidden="true"><path d="M0 60V30c150-34 280-30 420-6s250 30 390 4 330-34 630 2v30z" fill="${color}"/></svg>`;
+const edge = () => '';
 const flash = (a, extra = '') => `<span class="flash" ${extra}>${a}</span>`;
 const act = (id) => activities.find((a) => a.id === id);
 const resToggle = `<div class="seg" role="group" aria-label="Show prices for"><button type="button" data-res-btn="res" aria-pressed="true">Kenyan resident</button><button type="button" data-res-btn="non" aria-pressed="false">Non-resident</button></div>`;
+
+const offers = [
+  ['raft-team', 'Raft', '6 km of white water from', '/adventures/#rafting', [5500, 55]],
+  ['quad', 'Ride', 'Quad bikes and cycling', '/adventures/#quad'],
+  ['kayak', 'Paddle', 'Kayaks, mini rafts and boats from', '/adventures/#kayak', [500, 5]],
+  ['tents-night', 'Camp', 'Pitch up, or use our tents, from', '/camping/', [1000, 10]],
+  ['plate', 'Feast', 'Barizi, our restaurant on the hill', '/barizi/'],
+  ['room-warm', 'Sleep', 'Themed rooms from', '/stay/', [7000, 70]],
+  ['wedding', 'Gather', 'Weddings, team building, conferences', '/events/'],
+];
 
 const home = () => ({
   path: '/',
   title: 'Havila Resort, Sagana | Rafting, camping and rooms on the River Tana',
   desc: 'A waterfall, two islands and white water on the River Tana, about two hours from Nairobi. Stay, camp, raft, ride quads and eat on the hill at Barizi.',
+  bodyClass: 'page-home',
   body: `<!--
-THESIS: A resort site as a painted Kenyan wall, not a photo slider with a booking bar.
-OWN-WORLD: Marigold, river green, tomato and sky walls; Bowlby block lettering with hard shadows; Oleo script flourishes; ink frames, price boards.
-STORY: See the falls and the river, follow them through rooms, food and rapids to camp, send a complete enquiry.
-FIRST VIEWPORT: HAVILA across the top at full width, painted falls and bobbing raft below, Plan Your Stay under the name.
-FORM: Hand-painted signwriting, staged as one continuous river route. Seed 516048d6.
+THESIS: The river is alive on the first screen; the site moves like a run down it, not a brochure with a booking bar.
+OWN-WORLD: River stone and bone, one glacier jade; Anton at poster scale; full-bleed photography, no boxes.
+STORY: Touch the water, ride the activities sideways, fall into night at camp, wake in a real bed, send the plan.
+FIRST VIEWPORT: A live waterfall pouring in front of HAVILA; scrolling passes through it and water washes in each offer.
+FORM: Cinematic scroll film with the river and raft as the through-line.
 -->
-<section class="hero">
-  ${heroScene}
-  <div class="hero-copy">
-    <h1 class="hero-word">Havila<span>Mud by day. Clean sheets by night.</span></h1>
-    <div class="hero-offer">
-      <a class="btn" href="/plan/">Plan your stay</a>
-      <a class="hero-rating" href="${contact.reviews}" rel="noopener">Google guests rate us 4.3 ★</a>
+<section class="hero" data-hero>
+  <div class="hero-stage">
+    ${photo('falls', { sizes: '100vw', cls: 'hero-photo', eager: true })}
+    <canvas class="hero-water" aria-hidden="true"></canvas>
+    <div class="hero-shade"></div>
+    <div class="hero-copy">
+      <h1 class="hero-word" aria-label="Havila">${[...'HAVILA'].map((c) => `<span class="ltr" aria-hidden="true"><span>${c}</span></span>`).join('')}</h1>
+      <div class="hero-foot">
+        <p class="hero-tag"><span class="karibu">Karibu.</span> A waterfall, white water and a bed, two hours from Nairobi.</p>
+        <a class="btn" href="/plan/">Plan your stay</a>
+        <span class="scroll-cue" aria-hidden="true">Scroll into the falls</span>
+      </div>
     </div>
+    <nav class="offers" aria-label="What Havila offers">
+      ${offers.map(([ph, word, line, href, p], i) => `<a class="offer" data-offer="${i}" data-img="${ph}" href="${href}">
+        ${photo(ph, { sizes: '100vw', cls: 'offer-pic' })}
+        <span class="offer-n" aria-hidden="true">${i + 1}/${offers.length}</span>
+        <span class="offer-word"><span>${word}</span></span>
+        <span class="offer-line">${line}${p ? ` <b>${price(p[0], p[1])}</b>` : ''} <i aria-hidden="true">→</i></span>
+      </a>`).join('')}
+    </nav>
+    <a class="skip-reel" href="#wall">Skip intro</a>
+    <button type="button" class="sound" aria-pressed="false">Hear the falls</button>
   </div>
 </section>
 
 <div class="river-page">
-  <section class="sec w-tana">
-    ${edge('#07564A')}
-    <div class="wrap" data-river="92,98">
-      <div class="split">
-        <div class="t">
-          <h2 class="painted"><span class="flourish">Right off the A2,</span>right on the Tana.</h2>
-          <p class="lead">Kenya’s longest river runs along Havila, over a roaring waterfall and around two islands. About two hours from Nairobi, and you’re a long way from Nairobi.</p>
-          <div class="actions"><a class="btn btn-alt" href="/adventures/">See the adventures</a></div>
-        </div>
-        <div class="m stack-pics">${photo('lodge', { sizes: '(max-width:820px) 90vw, 50vw', cls: 'frame tilt-r', eager: true })}${photo('river', { sizes: '(max-width:820px) 45vw, 24vw', cls: 'frame over' })}</div>
-      </div>
+<section class="sec w-tana wall" id="wall">
+  <div class="wrap">
+    <h2 data-river="94,96.5"><span class="flourish">Pick your</span>way to get soaked</h2>
+    <div class="adventure-wall" data-river="50,98">
+      <a class="tile t1" href="/adventures/#rafting"><span class="tile-name">White water rafting</span>${photo('raft-team', { sizes: '(max-width:820px) 92vw, 62vw' })}<span class="flash">${price(5500, 55)}<small>6 km, min. 4 adults</small></span></a>
+      <a class="tile t2" href="/adventures/#mini-raft"><span class="tile-name">Mini rafting</span>${photo('raft-yellow', { sizes: '(max-width:820px) 46vw, 32vw' })}<span class="flash">${price(1500, 15)}<small>1 hour, per person</small></span></a>
+      <a class="tile t3" href="/adventures/#quad"><span class="tile-name">Quad biking</span>${photo('quad', { sizes: '(max-width:820px) 46vw, 32vw' })}</a>
+      <a class="tile t4" href="/adventures/#kayak"><span class="tile-name">Kayaking</span>${photo('kayak', { sizes: '(max-width:820px) 46vw, 32vw' })}</a>
+      <a class="tile t5" href="/adventures/#archery"><span class="tile-name">Archery</span>${photo('archery', { sizes: '(max-width:820px) 46vw, 32vw' })}<span class="flash">${price(1000, 10)}<small>1 hour</small></span></a>
     </div>
-  </section>
+    <div class="actions" data-river="88,96.5"><a class="btn" href="/adventures/">All 13 activities and prices</a></div>
+  </div>
+</section>
 
-  <section class="sec w-sky">
-    ${edge('#3CC1EE')}
-    <div class="wrap">
-      <h2 class="painted" data-river="94,96.5"><span class="flourish">Pick your</span>way to get soaked</h2>
-      <div class="adventure-wall" data-river="50,98">
-        <a class="tile t1" href="/adventures/#rafting"><span class="tile-name">White water rafting</span>${photo('raft-team', { sizes: '(max-width:820px) 92vw, 62vw' })}<span class="flash">${price(5500, 55)}<small>6 km, min. 4 adults</small></span></a>
-        <a class="tile t2" href="/adventures/#mini-raft"><span class="tile-name">Mini rafting</span>${photo('raft-yellow', { sizes: '(max-width:820px) 46vw, 32vw' })}<span class="flash">${price(1500, 15)}<small>1 hour, per person</small></span></a>
-        <a class="tile t3" href="/adventures/#quad"><span class="tile-name">Quad biking</span>${paint(paintedQuad)}</a>
-        <a class="tile t4" href="/adventures/#kayak"><span class="tile-name">Kayaking</span>${photo('kayak', { sizes: '(max-width:820px) 46vw, 32vw' })}</a>
-        <a class="tile t5" href="/adventures/#archery"><span class="tile-name">Archery</span>${paint(paintedArchery)}<span class="flash">${price(1000, 10)}<small>1 hour</small></span></a>
-      </div>
-      <div class="actions" data-river="88,96.5"><a class="btn btn-lime" href="/adventures/">All 13 activities and prices</a></div>
+<section class="fall" data-fall aria-label="Camping">
+  <i class="r-pt" style="top:30svh" data-river="94,97"></i><i class="r-pt" style="bottom:30svh" data-river="94,97"></i>
+  <div class="fall-stage">
+    ${photo('tents-mist', { sizes: '100vw', cls: 'fall-pic' })}
+    ${photo('tents-night', { sizes: '100vw', cls: 'fall-pic' })}
+    ${photo('campfire', { sizes: '100vw', cls: 'fall-pic' })}
+    <div class="fall-shade"></div>
+    <div class="fall-copy">
+      <h2><span class="flourish">Then sleep to the sound of</span>the falls</h2>
+      <p class="fall-price">Own tent ${price(ownTent.res, ownTent.non)}</p>
+      <a class="btn" href="/camping/">Camping at Havila</a>
     </div>
-  </section>
+  </div>
+</section>
 
-  <section class="sec w-night">
-    ${edge('#17144A')}
-    <div class="wrap" data-river="94,98">
-      <div class="camp-grid">
-        <div class="a">${paint(paintedCamp, 'frame')}</div>
-        <div class="b">${photo('campfire', { sizes: '(max-width:820px) 66vw, 30vw', cls: 'frame tilt-r' })}</div>
-      </div>
-      <div style="margin-top:clamp(40px,6vw,76px)">
-        <h2 class="painted"><span class="flourish">Then sleep to the sound of</span>the falls</h2>
-        <p class="lead camp-lead">Pitch by the river with your own tent, or turn up and we’ll have one ready. Guests keep bringing up two things in their reviews: the camping area and the dinner buffet.</p>
-        <div class="board" style="max-width:560px;margin-top:1.6em">
-          <div class="board-row"><span>Bring your own tent</span><span class="dots"></span><span class="amt">${price(ownTent.res, ownTent.non)}</span></div>
-          <div class="board-row"><span>Camping, one guest</span><span class="dots"></span><span class="amt">${price(1500, 15)}</span></div>
-          <div class="board-row"><span>Camping full board, one guest</span><span class="dots"></span><span class="amt">${price(5250, 53)}</span></div>
-        </div>
-        <div class="actions"><a class="btn btn-alt" href="/camping/">Camping at Havila</a></div>
-      </div>
-    </div>
-  </section>
+<section class="pile" data-pile aria-label="Photos of Havila">
+  <i class="r-pt" style="top:20svh" data-river="95,97"></i><i class="r-pt" style="bottom:20svh" data-river="95,97"></i>
+  <div class="pile-stage">
+    ${[['lodge', 'The lodge'], ['river', 'The Tana'], ['bridge', 'The bridge'], ['lodge-hills', 'The hills'], ['terrace', 'The terrace'], ['room-log', 'Log walls']].map(([n, cap]) => `<div class="pile-card">${photo(n, { sizes: '(max-width:820px) 88vw, 62vw' })}<span class="pile-cap">${cap}</span></div>`).join('')}
+  </div>
+</section>
 
-  <section class="sec w-lime calm">
-    ${edge('#FFF8E1')}
-    <div class="wrap" data-river="4,96.5">
-      <div class="split flip">
-        <div class="t">
-          <h2 class="painted"><span class="flourish">Or sleep in</span>a real bed</h2>
-          <p class="lead">Log walls, canvas walls, a bay window over the hills. Every room has its own theme, and the windows look to Kirengete Falls and the Gaturi Hills.</p>
-          <p>From <strong>${price(7000, 70)}</strong> a night with breakfast.</p>
-          <div class="actions"><a class="btn" href="/stay/">See the rooms</a></div>
-        </div>
-        <div class="m stack-pics" style="padding-right:18px">
-          ${photo('room-log', { sizes: '(max-width:820px) 90vw, 50vw', cls: 'frame' })}
-          ${photo('room-canvas', { sizes: '(max-width:820px) 45vw, 24vw', cls: 'frame tilt-r over' })}
-        </div>
-      </div>
-    </div>
-  </section>
+<section class="sec w-lime strip-sec">
+  <i class="r-pt" style="top:0" data-river="96,98"></i>
+  <div class="wrap">
+    <h2><span class="flourish">Or sleep in</span>a real bed</h2>
+    <div class="actions"><a class="btn" href="/stay/">See the rooms</a><span class="from">From ${price(7000, 70)} a night</span></div>
+  </div>
+  <div class="strip" data-river="4,96.5" aria-label="Rooms at Havila">
+    <div class="strip-track" data-dir="-1">${photo('room-cream', { sizes: '(max-width:820px) 70vw, 40vw' })}${photo('room-deck', { sizes: '(max-width:820px) 70vw, 40vw' })}${photo('room-modern', { sizes: '(max-width:820px) 70vw, 40vw' })}${photo('room-classic', { sizes: '(max-width:820px) 70vw, 40vw' })}${photo('room-glass', { sizes: '(max-width:820px) 70vw, 40vw' })}${photo('room-pillow', { sizes: '(max-width:820px) 70vw, 40vw' })}</div>
+    <div class="strip-track" data-dir="1">${photo('room-log', { sizes: '(max-width:820px) 70vw, 40vw' })}${photo('room-canvas', { sizes: '(max-width:820px) 70vw, 40vw' })}${photo('room-bay', { sizes: '(max-width:820px) 70vw, 40vw' })}${photo('room-red', { sizes: '(max-width:820px) 70vw, 40vw' })}${photo('room-tuft', { sizes: '(max-width:820px) 70vw, 40vw' })}${photo('room-white', { sizes: '(max-width:820px) 70vw, 40vw' })}</div>
+  </div>
+</section>
 
-  <section class="sec w-tana calm">
-    ${edge('#07564A')}
-    <div class="wrap" data-river="95,98">
-      <div class="split">
-        <div class="t">
-          <h2 class="painted"><span class="flourish">Dinner’s up</span>on the hill</h2>
-          <p class="lead">Barizi sits on top of the hill, facing Mt. Kenya, the Aberdares and the Gaturi Hills. The chef cooks local and international food, with some of it picked from the garden that morning.</p>
-          <div class="actions"><a class="btn btn-alt" href="/barizi/">Meet Barizi</a></div>
-        </div>
-        <div class="m stack-pics" style="padding-right:18px">
-          ${photo('terrace', { sizes: '(max-width:820px) 90vw, 50vw', cls: 'frame' })}
-          ${photo('buffet', { sizes: '(max-width:820px) 45vw, 24vw', cls: 'frame tilt-r over' })}
-        </div>
-      </div>
-    </div>
-  </section>
+<section class="band w-tana">
+  <div class="band-wrap" data-river="96,98">
+    ${photo('restaurant', { sizes: '92vw', cls: 'band-pic' })}
+    <div class="band-copy"><h2><span class="flourish">Dinner’s up</span>on the hill</h2><a class="btn" href="/barizi/">Meet Barizi</a></div>
+    ${photo('flatlay', { sizes: '(max-width:820px) 50vw, 30vw', cls: 'band-small' })}
+  </div>
+</section>
 
-  <section class="sec w-leaf">
-    ${edge('#2FB457')}
-    <div class="wrap" data-river="5,96.5">
-      <div class="split flip">
-        <div class="t">
-          <h2 class="painted"><span class="flourish">Bring the whole</span>office. Or the wedding.</h2>
-          <p class="lead">Event grounds, conference space and a river full of team-building. Work out a budget for your group in a minute, then send it to whoever signs it off.</p>
-          <div class="actions"><a class="btn btn-lime" href="/events/">Events at Havila</a></div>
-        </div>
-        <div class="m" style="padding-right:18px">${photo('dining-hall', { sizes: '(max-width:820px) 90vw, 50vw', cls: 'frame' })}</div>
-      </div>
-    </div>
-  </section>
+<section class="band w-lime">
+  <div class="band-wrap flip" data-river="4,96.5">
+    ${photo('wedding', { sizes: '92vw', cls: 'band-pic' })}
+    <div class="band-copy"><h2><span class="flourish">Bring the whole</span>office. Or the wedding.</h2><a class="btn" href="/events/">Events at Havila</a></div>
+    ${photo('wedding-flowers', { sizes: '(max-width:820px) 50vw, 30vw', cls: 'band-small' })}
+  </div>
+</section>
 
-  <section class="sec w-lime close">
-    ${edge('#FFF8E1')}
-    <div class="river-end" data-river="50,97"></div>
-    <div class="wrap">
-      <h2 class="painted"><span class="flourish">So when are</span>you coming?</h2>
-      <p class="lead">Tick what you want. See the cost right away. Send it to the front desk on WhatsApp in one tap.</p>
-      <div class="actions">
-        <a class="btn" href="/plan/">Plan your stay</a>
-        <a class="btn btn-alt" href="tel:${contact.phone}">Call ${contact.phoneDisplay}</a>
-      </div>
+<section class="sec w-night close close-photo">
+  <i class="r-pt" style="top:0" data-river="50,97"></i>
+  ${photo('sunset-2', { sizes: '100vw', cls: 'close-pic' })}
+  <div class="wrap">
+    <h2><span class="flourish">So when are</span>you coming?</h2>
+    <div class="actions">
+      <a class="btn" href="/plan/">Plan your stay</a>
+      <a class="btn btn-alt" href="tel:${contact.phone}">Call ${contact.phoneDisplay}</a>
     </div>
-  </section>
+  </div>
+</section>
 </div>`,
 });
 
