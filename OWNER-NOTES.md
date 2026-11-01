@@ -26,7 +26,7 @@ The conference capacity is deliberately left out because no figure was available
 
 **Sample photos, tagged on the site.** Most of the imagery on the home, Stay, Barizi and Events pages is now high-quality stock from other places, including the hero waterfall, room photos, food and weddings. Every one must be replaced with real Havila photos before launch, and the owner should be told they are placeholders. Files are in `src/photos-raw/sample/`: keep the same file name when replacing, and the site picks it up on rebuild. Licences are listed in `src/data.mjs` and on `/credits/`.
 
-**Most wanted from a shoot:** Kirengete Falls (currently only painted), the islands, Havila's own rafts and quads, the campsite, and the view from Barizi.
+**Most wanted from a shoot:** Kirengete Falls (no photo on the site yet), the islands, Havila's own rafts and quads, the campsite, and the view from Barizi.
 
 The logo on the site is a stand-in wordmark. Ask for the real logo file; the resort's sign shows a tree-and-droplet mark.
 
