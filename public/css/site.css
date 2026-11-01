@@ -226,3 +226,18 @@ body:not(.page-home) .top{mix-blend-mode:normal}
 .act-price{font:400 1.25rem/1.1 var(--display);white-space:nowrap;text-align:right;letter-spacing:.02em}
 .act-price small{display:block;font:600 .78rem var(--body);letter-spacing:0}
 
+/* Rooms */
+.rooms{display:grid;grid-template-columns:repeat(12,1fr);gap:clamp(8px,1vw,14px)}
+.rooms button{appearance:none;background:none;border:0;padding:0;color:inherit;font:inherit;text-align:left;cursor:zoom-in;display:block;position:relative;overflow:hidden}
+.rooms .pic{height:100%}
+.rooms .pic img{position:absolute;inset:0;transition:transform .9s var(--ease)}
+.rooms button:hover img{transform:scale(1.05)}
+.rooms .r1{grid-column:span 7;aspect-ratio:3/2}.rooms .r2{grid-column:span 5}.rooms .r3,.rooms .r4,.rooms .r5{grid-column:span 4;aspect-ratio:1}
+@media (max-width:640px){.rooms .r1,.rooms .r2,.rooms .r5{grid-column:1/-1;aspect-ratio:3/2}.rooms .r3,.rooms .r4{grid-column:span 6;aspect-ratio:1}}
+.rm-cap{position:absolute;left:0;bottom:0;background:var(--stone);color:var(--bone);padding:.25em .65em;font-weight:600;font-size:.86rem;z-index:2}
+dialog.lb{border:0;padding:0;background:var(--stone);max-width:min(94vw,1200px);max-height:92vh}
+dialog.lb::backdrop{background:rgba(13,19,18,.92)}
+dialog.lb img{max-height:82vh;width:auto;margin:auto}
+dialog.lb form{position:absolute;right:8px;top:8px}
+dialog.lb p{color:var(--bone);margin:0;padding:.6em .9em;max-width:none}
+
