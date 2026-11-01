@@ -46,6 +46,7 @@ ${preview ? '<meta name="robots" content="noindex,nofollow">' : ''}
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 <link rel="preload" href="/fonts/anton-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/fonts/figtree-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
+<script>if(!matchMedia('(prefers-reduced-motion: reduce)').matches)document.documentElement.classList.add('motion')</script>
 <link rel="stylesheet" href="/css/site.css">
 <script type="application/ld+json">${JSON.stringify(ld)}</script>
 </head>
