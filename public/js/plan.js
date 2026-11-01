@@ -187,7 +187,7 @@ function estimate() {
     row.append(a, b);
     $('sum-lines').append(row);
   });
-  const shown = valid ? fmt(total, mode) : '–';
+  const shown = valid && !issues.arrive ? fmt(total, mode) : '–';
   $('sum-total').textContent = shown;
   $('sum-total-label').textContent = label;
   $('bar-total').textContent = shown;
