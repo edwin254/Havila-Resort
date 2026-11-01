@@ -180,31 +180,31 @@ const stay = () => ({
 });
 
 const featured = [
-  ['raft-team', 'rafting', 'wet', 'White water rafting', 'Six kilometres of the Tana. Water is usually at its highest in the rains, from March to May and October to December, and that’s when it hits hardest. You’ll need at least four adults in your group.'],
-  ['raft-yellow', 'mini-raft', 'wet', 'Mini rafting', 'An hour on the water with less fear involved. It’s a good first time, and a good way to find out who screams in your family.'],
-  [paintedQuad, 'quad', 'wheels', 'Quad biking', 'Four wheels, red earth and no rules about staying clean. Ask the front desk about routes and the day’s price.'],
-  ['kayak', 'kayak', 'wet', 'Kayaking', 'Just you, one paddle and a river with opinions. Tell us your experience level and we’ll point you to the right water.'],
-  [paintedArchery, 'archery', 'land', 'Archery', 'A full hour on the range. Friendly competition guaranteed to turn unfriendly by the last round.'],
+  ['raft-team', 'rafting', 'wet', 'White water rafting', 'Six kilometres of the Tana. Hits hardest in the rains.'],
+  ['raft-yellow', 'mini-raft', 'wet', 'Mini rafting', 'One hour. Find out who screams in your family.'],
+  ['quad', 'quad', 'wheels', 'Quad biking', 'Four wheels, red earth, no staying clean.'],
+  ['kayak', 'kayak', 'wet', 'Kayaking', 'One paddle. A river with opinions.'],
+  ['archery', 'archery', 'land', 'Archery', 'One hour. Friendly until the last round.'],
 ];
 
 const adventures = () => ({
   path: '/adventures', title: 'Rafting, quad biking and more | Havila Resort, Sagana', desc: 'White water rafting, mini rafting, kayaking, quad biking, archery, hiking, boat rides and more on the River Tana, with current prices.',
   body: `<section class="head w-sky"><div class="wrap head-grid">
-    <div class="t"><h1 class="painted"><span class="flourish">Come home</span>dirty</h1><p class="lead">River, mud, dust and a target with your name on it. Do one, or do the whole lot before lunch.</p>
+    <div class="t"><h1><span class="flourish">Come home</span>dirty</h1><p class="lead">River, mud, dust and a target with your name on it. Do one, or do the whole lot before lunch.</p>
     <div class="actions">${resToggle}</div></div>
-    <div class="m">${paint(paintedRapids, 'frame tilt-r')}</div>
+    <div class="m">${photo('river', { sizes: '(max-width:820px) 92vw, 50vw', eager: true })}</div>
   </div></section>
   <section class="sec w-lime">${edge('#FFF8E1')}<div class="wrap">
     ${featured.map(([ph, id, g, name, text]) => {
       const a = act(id);
       return `<article class="act-feature" id="${id}" >
-        <div class="m">${ph.startsWith('<svg') ? paint(ph, 'frame') : photo(ph, { sizes: '(max-width:820px) 92vw, 58vw', cls: 'frame' })}<span class="flash">${price(a.res, a.non)}${a.unit ? `<small>${a.unit}</small>` : ''}</span></div>
-        <div class="t"><h2 class="painted" style="font-size:clamp(2rem,1.2rem + 3vw,3.6rem)">${name}</h2><p>${text}</p>${a.minNote ? `<p class="small"><strong>${a.minNote}.</strong></p>` : ''}<a class="btn btn-small" data-add="${id}" href="/plan/?activity=${id}">Add to my plan</a></div>
+        <div class="m">${photo(ph, { sizes: '(max-width:820px) 92vw, 58vw' })}<span class="flash">${price(a.res, a.non)}${a.unit ? `<small>${a.unit}</small>` : ''}</span></div>
+        <div class="t"><h2 style="font-size:clamp(2rem,1.2rem + 3vw,3.6rem)">${name}</h2><p>${text}</p>${a.minNote ? `<p class="small"><strong>${a.minNote}.</strong></p>` : ''}<a class="btn btn-small" data-add="${id}" href="/plan/?activity=${id}">Add to my plan</a></div>
       </article>`;
     }).join('')}
   </div></section>
   <section class="sec w-marigold" id="all">${edge('#FFB703')}<div class="wrap">
-    <h2 class="painted"><span class="flourish">The whole</span>price board</h2>
+    <h2><span class="flourish">The whole</span>price board</h2>
     <div class="filters" role="group" aria-label="Filter activities">
       ${[['all', 'Everything'], ['wet', 'On the water'], ['wheels', 'On wheels'], ['land', 'On foot'], ['slow', 'Slow down']].map(([f, l], i) => `<button type="button" class="chip" data-filter="${f}" aria-pressed="${i === 0}">${l}</button>`).join('')}
       <span id="filter-count" role="status" style="align-self:center;font-weight:800">${activities.length} activities</span>
