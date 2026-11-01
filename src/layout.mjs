@@ -44,7 +44,7 @@ ${preview ? '<meta name="robots" content="noindex,nofollow">' : ''}
 <meta property="og:type" content="website"><meta property="og:title" content="${page.title}"><meta property="og:description" content="${page.desc}"><meta property="og:image" content="${site}/og.jpg"><meta property="og:url" content="${canonical}">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
-<link rel="preload" href="/fonts/bowlby-one-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/fonts/anton-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/fonts/figtree-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="/css/site.css">
 <script type="application/ld+json">${JSON.stringify(ld)}</script>
