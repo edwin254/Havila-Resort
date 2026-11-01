@@ -174,3 +174,24 @@ h3,.as-h3{font-size:clamp(1.5rem,1.2rem + 1.1vw,2.3rem);margin-bottom:.4em;lette
 .close .lead,.close p{margin-inline:auto}
 .close .actions{justify-content:center}
 
+/* Boards */
+.board{background:var(--bone);color:var(--ink);padding:clamp(18px,3vw,36px);--fg:var(--ink);--accent:var(--glacier-deep)}
+.board-row{display:flex;align-items:baseline;gap:.5em;padding:.5em 0;font-weight:600}
+.board-row .dots{flex:1;border-bottom:1px solid rgba(13,19,18,.3);transform:translateY(-.25em);min-width:14px}
+.board-row .amt{font:400 1.2em/1 var(--display);white-space:nowrap;letter-spacing:.02em}
+.board-row small{display:block;font-weight:400;font-size:.82rem;line-height:1.25}
+.board-note{font-size:.92rem;margin:1em 0 0;max-width:60ch}
+.boards{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,380px),1fr));gap:clamp(24px,3.5vw,44px);align-items:start}
+.boards-wide{grid-template-columns:repeat(auto-fit,minmax(min(100%,500px),1fr))}
+table.rate{width:100%;border-collapse:collapse;font-weight:600}
+table.rate th,table.rate td{padding:.6em .4em;text-align:right;border-bottom:1px solid rgba(13,19,18,.22)}
+table.rate th:first-child,table.rate td:first-child{text-align:left}
+table.rate thead th{font-weight:800;font-size:.85rem;line-height:1.2;border-bottom:2px solid var(--ink);vertical-align:bottom}
+table.rate td.num{font:400 1.15em/1 var(--display);white-space:nowrap;letter-spacing:.02em}
+table.rate caption{text-align:left;font:400 clamp(1.5rem,1.2rem + 1.1vw,2.3rem)/1 var(--display);text-transform:uppercase;margin-bottom:.5em}
+@media (max-width:380px){table.rate{font-size:.86rem}table.rate th,table.rate td{padding-inline:.15em}table.rate td.num{white-space:normal}.board{padding:12px}}
+.seg{display:inline-flex;box-shadow:inset 0 0 0 2px currentColor}
+.seg button{font:800 1rem var(--body);background:transparent;color:inherit;border:0;padding:.7em 1em;cursor:pointer;min-height:48px;transition:background .25s,color .25s}
+.seg button[aria-pressed=true]{background:var(--glacier);color:var(--ink)}
+.seg button:hover:not([aria-pressed=true]){background:rgba(127,127,127,.22)}
+
