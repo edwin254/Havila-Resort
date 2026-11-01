@@ -40,7 +40,7 @@ export function layout(page, site) {
 <meta name="description" content="${page.desc}">
 <link rel="canonical" href="${canonical}">
 ${preview ? '<meta name="robots" content="noindex,nofollow">' : ''}
-<meta name="theme-color" content="#07564A">
+<meta name="theme-color" content="#0D1312">
 <meta property="og:type" content="website"><meta property="og:title" content="${page.title}"><meta property="og:description" content="${page.desc}"><meta property="og:image" content="${site}/og.jpg"><meta property="og:url" content="${canonical}">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
