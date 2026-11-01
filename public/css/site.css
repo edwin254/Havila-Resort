@@ -471,3 +471,18 @@ html:not(.motion) .offer-pic{position:absolute;inset:0;transform:none!important}
 @media (min-width:821px){.sound{bottom:30px}}
 .sound[aria-pressed=true]{background:var(--glacier);color:var(--ink)}
 
+/* ---- Softer geometry: nothing boxy ---- */
+:root{--r:14px}
+.btn{border-radius:99px}
+.btn-small{border-radius:99px}
+.pic,.tile,.pile-card,.board,.rm-cap,dialog.lb{border-radius:var(--r)}
+.pile-cap,.flash,.tile-name{border-radius:99px;margin:12px}
+.tile-name{padding:.32em .8em}
+.flash{padding:.4em .95em}
+.seg{border-radius:99px;padding:4px;box-shadow:inset 0 0 0 2px currentColor}
+.seg button{border-radius:99px;min-height:44px}
+.chip{border-radius:99px}
+.summary{top:90px}
+.menu-btn{border-radius:99px}
+.site-nav{border-radius:var(--r)}
+
