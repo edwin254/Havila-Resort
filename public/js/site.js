@@ -512,6 +512,34 @@ function runMotion() {
     gsap.fromTo(p, { strokeDasharray: len, strokeDashoffset: len }, { strokeDashoffset: 0, duration: 2.2, ease: 'power2.inOut', scrollTrigger: { trigger: p.closest('svg'), start: 'top 80%', once: true } });
   });
 
+  // Hero: the falls, then the whole offer
+  const hero = document.querySelector('[data-hero]');
+  if (hero) {
+    const falls = startFalls(hero);
+    const foot = hero.querySelector('.hero-foot');
+    gsap.from(foot.children, { y: 30, autoAlpha: 0, duration: 1, stagger: .1, delay: .7, ease: 'power3.out' });
+    gsap.to(foot, { autoAlpha: 0, y: -40, ease: 'power2.in', scrollTrigger: { trigger: hero, start: 'top top', end: '6% top', scrub: .3 } });
+    const items = [...hero.querySelectorAll('.offer')];
+    ScrollTrigger.create({ trigger: hero, start: 'top top', end: 'bottom bottom',
+      onUpdate: (s) => {
+        if (falls) { falls.target = s.progress; return; }
+        // No WebGL: the same reel as a simple crossfade over real photos
+        const i = s.progress < .2 ? -1 : Math.min(items.length - 1, Math.floor((s.progress - .2) / .8 * items.length));
+        items.forEach((o, k) => o.classList.toggle('on', k === i));
+        hero.classList.toggle('in-offers', i >= 0);
+      },
+    });
+    if (falls) new IntersectionObserver(([e]) => { if (e.isIntersecting) falls.play(); else falls.pause(); }).observe(hero);
+    const sound = hero.querySelector('.sound');
+    if (sound) setupSound(sound, hero);
+    // Offer links stay reachable by keyboard: focusing one scrolls the reel to it
+    items.forEach((o, i) => o.addEventListener('focus', () => {
+      const top = hero.getBoundingClientRect().top + scrollY;
+      const span = hero.offsetHeight - innerHeight;
+      scrollTo(0, top + span * (.2 + (i + .4) / items.length * .8));
+    }));
+  }
+
   // Statement lights up word by word as you read
   document.querySelectorAll('[data-say]').forEach((el) => {
     el.setAttribute('aria-label', el.textContent);
