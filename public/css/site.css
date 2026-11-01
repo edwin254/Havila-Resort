@@ -328,3 +328,24 @@ ul.lead li a{display:inline-block;padding:.5em 0}
   .page-plan .dock{display:none}
 }
 
+/* Progress and page wipe */
+.progress{position:fixed;left:0;top:0;height:3px;width:100%;background:var(--glacier);transform:scaleX(0);transform-origin:left;z-index:70;pointer-events:none}
+.curtain{position:fixed;inset:0;background:var(--glacier);z-index:100;pointer-events:none}
+@view-transition{navigation:auto}
+::view-transition-old(root){animation:vt-out .55s var(--ease) both}
+::view-transition-new(root){animation:vt-in .75s var(--ease) both}
+@keyframes vt-out{to{transform:translateY(-14%) scale(.96);filter:brightness(.4)}}
+@keyframes vt-in{from{clip-path:inset(100% 0 0 0)}to{clip-path:inset(0)}}
+.line{display:block;overflow:hidden;padding-block:.06em;margin-block:-.06em}
+.line>span{display:inline-block;will-change:transform}
+
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation:none!important;transition:none!important}
+  ::view-transition-old(root),::view-transition-new(root){animation:none!important}
+  .hero-water{display:none}
+}
+@media print{
+  .top,.dock,.progress,.curtain,.plan-bar{display:none}
+  .print-budget main>*:not(:has(#budget)),.print-budget .foot,.print-budget .budget-tools,.print-budget #b-send{display:none}
+}
+
