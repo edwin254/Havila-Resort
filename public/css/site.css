@@ -524,3 +524,11 @@ html:not(.motion) .offer-pic{position:absolute;inset:0;transform:none!important}
 /* The plan is a ticket with punched edges */
 .summary{border-radius:18px;-webkit-mask:radial-gradient(circle 13px at 0 118px,transparent 98%,#000) left/51% 100% no-repeat,radial-gradient(circle 13px at 100% 118px,transparent 98%,#000) right/51% 100% no-repeat;mask:radial-gradient(circle 13px at 0 118px,transparent 98%,#000) left/51% 100% no-repeat,radial-gradient(circle 13px at 100% 118px,transparent 98%,#000) right/51% 100% no-repeat}
 .summary h2{padding-bottom:.6em;margin-bottom:.5em;border-bottom:2px dashed rgba(237,232,220,.35)}
+/* Budget checkboxes: pills */
+#budget .box{border-radius:99px;padding-inline:1em}
+#budget .field input{border-radius:var(--r);border:0;background:rgba(13,19,18,.07)}
+.planner{grid-template-columns:minmax(0,7.5fr) minmax(0,4fr)}
+@media (max-width:920px){.planner{grid-template-columns:minmax(0,1fr)}}
+.sentence{font-size:clamp(1.9rem,1.3rem + 2.2vw,3.5rem)}
+@media (max-width:820px){.sound{bottom:auto;top:76px}}
+
