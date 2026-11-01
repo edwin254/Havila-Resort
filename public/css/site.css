@@ -356,3 +356,15 @@ ul.lead li a{display:inline-block;padding:.5em 0}
 .tile .flash{bottom:24px}
 .fall .sample-tag{right:auto;left:0;top:60px}
 
+/* Images lead, slanted */
+main .pic:not(.hero-photo):not(.fall-pic):not(.ride-pic){transform:rotate(-2.4deg)}
+main .tile .pic,main .rooms .pic,main .pile .pic,main .strip .pic{transform:none}
+main section:not(.hero):not(.fall){overflow-x:clip}
+.tile:nth-child(odd){transform:rotate(-2deg)}.tile:nth-child(even){transform:rotate(2deg)}
+.rooms button:nth-child(odd){transform:rotate(-1.4deg)}.rooms button:nth-child(even){transform:rotate(1.4deg)}
+.adventure-wall{gap:clamp(14px,2vw,30px)}
+.say{font-size:clamp(3rem,1rem + 9.4vw,11rem);line-height:.98}
+.statement{padding-block:clamp(70px,10vw,150px)}
+.fall-price{font:400 clamp(1.5rem,1.2rem + 1.4vw,2.6rem)/1 var(--display);text-transform:uppercase;margin:0 0 .7em}
+.from{font:400 clamp(1.2rem,1rem + .9vw,1.9rem)/1 var(--display);text-transform:uppercase}
+
