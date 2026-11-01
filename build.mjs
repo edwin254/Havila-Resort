@@ -23,6 +23,11 @@ for (const [pkg, file] of fonts) {
   await fs.copyFile(`node_modules/@fontsource/${pkg}/files/${file}.woff2`, `${dist}/fonts/${file}.woff2`);
 }
 
+await fs.mkdir(`${dist}/js/vendor`, { recursive: true });
+for (const f of ['gsap/dist/gsap.min.js', 'gsap/dist/ScrollTrigger.min.js', 'lenis/dist/lenis.min.js']) {
+  await fs.copyFile(`node_modules/${f}`, `${dist}/js/vendor/${path.basename(f)}`);
+}
+
 const manifest = {};
 for (const [name, meta] of Object.entries(photos)) {
   const src = path.join('src/photos-raw', meta.sample ? 'sample' : 'real', `${name}.jpg`);
