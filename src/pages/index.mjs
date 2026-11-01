@@ -262,14 +262,13 @@ const barizi = () => ({
 const events = () => ({
   path: '/events', title: 'Team building, conferences and weddings | Havila Resort, Sagana', desc: 'Team building, conferences, weddings and sports events on the River Tana. Event grounds, conference space, facilitators and a group budget estimator.',
   body: `<section class="head w-leaf"><div class="wrap head-grid">
-    <div class="t"><h1 class="painted"><span class="flourish">Big group?</span>Good.</h1><p class="lead">Offices, weddings, sports days and reunions. We have the grounds, the river and a kitchen that doesn’t panic.</p></div>
-    <div class="m">${photo('lodge-hills', { sizes: '(max-width:820px) 92vw, 40vw', cls: 'frame tilt-r', eager: true })}</div>
+    <div class="t"><h1><span class="flourish">Big group?</span>Good.</h1><p class="lead">Offices, weddings, sports days and reunions. We have the grounds, the river and a kitchen that doesn’t panic.</p></div>
+    <div class="m">${photo('wedding-blue', { sizes: '(max-width:820px) 92vw, 40vw', eager: true })}</div>
   </div></section>
   <section class="sec w-marigold">${edge('#FFB703')}<div class="wrap">
-    <h2 class="painted"><span class="flourish">Team building</span>your team will actually attend</h2>
+    <h2><span class="flourish">Team building</span>your team will actually attend</h2>
     <div class="boards">
-      <div><p class="lead">A facilitator runs the games and challenges for groups of 20 or more. Then split up into rafts, go head to head at archery, and settle accounts versus sales once and for all.</p>
-      <p>Add conference time in the morning, then send everyone to the river for the afternoon.</p></div>
+      <div><p class="lead">Conference in the morning. River in the afternoon. Groups of 20 or more.</p></div>
       <form class="board" id="budget" aria-label="Team-building budget estimator">
         <h3>Your group’s budget</h3>
         <div class="field"><label for="b-people">How many people?</label><input id="b-people" type="number" min="20" max="500" step="1" value="30" inputmode="numeric"><p class="err" id="b-err" hidden></p></div>
@@ -289,11 +288,11 @@ const events = () => ({
     </div>
   </div></section>
   <section class="sec w-lime calm">${edge('#FFF8E1')}<div class="wrap split flip">
-    <div class="t"><h2 class="painted"><span class="flourish">Say</span>“I do” by the river</h2><p class="lead">Event grounds under the trees, photos on the bridge and at the falls, and rooms for the family up the hill.</p><p>We’ll even do the rose petals.</p><div class="actions"><a class="btn" href="${waFree('Hello Havila Resort, I am planning a wedding and would like to talk about dates and packages.')}" rel="noopener">Talk weddings on WhatsApp</a></div></div>
-    <div class="m stack-pics" style="padding-right:18px">${photo('bridge', { sizes: '(max-width:820px) 90vw, 50vw', cls: 'frame' })}${photo('room-petals', { sizes: '(max-width:820px) 45vw, 24vw', cls: 'frame tilt-r over' })}</div>
+    <div class="t"><h2><span class="flourish">Say</span>“I do” by the river</h2><p class="lead">Event grounds under the trees, photos on the bridge and at the falls, and rooms for the family up the hill.</p><p>We’ll even do the rose petals.</p><div class="actions"><a class="btn" href="${waFree('Hello Havila Resort, I am planning a wedding and would like to talk about dates and packages.')}" rel="noopener">Talk weddings on WhatsApp</a></div></div>
+    <div class="m stack-pics" style="padding-right:18px">${photo('wedding', { sizes: '(max-width:820px) 90vw, 50vw' })}${photo('room-petals', { sizes: '(max-width:820px) 45vw, 24vw', cls: 'over' })}</div>
   </div></section>
   <section class="sec w-tana">${edge('#07564A')}<div class="wrap split">
-    <div class="t"><h2 class="painted"><span class="flourish">Getting a</span>conference approved?</h2></div>
+    <div class="t"><h2><span class="flourish">Getting a</span>conference approved?</h2></div>
     <div class="m"><p class="lead">Send us your headcount, dates and room setup. We’ll send back a written quote you can hand straight to your finance team.</p><div class="actions"><a class="btn btn-alt" href="mailto:${contact.email}?subject=Conference%20quote%20request">Email for a quote</a></div></div>
   </div></section>
   <script>
