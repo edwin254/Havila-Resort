@@ -93,6 +93,9 @@ ${page.body}
   <a class="dock-wa" href="${waFree('Hello Havila Resort, I would like to ask about a visit.')}" rel="noopener">WhatsApp</a>
   <a class="dock-plan" href="/plan/">Plan <span data-tray-count></span></a>
 </nav>
+<script src="/js/vendor/gsap.min.js" defer></script>
+<script src="/js/vendor/ScrollTrigger.min.js" defer></script>
+<script src="/js/vendor/lenis.min.js" defer></script>
 <script src="/js/site.js" defer></script>
 ${page.scripts || ''}
 </body>
