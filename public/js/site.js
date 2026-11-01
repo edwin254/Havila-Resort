@@ -547,6 +547,20 @@ function runMotion() {
     gsap.fromTo(el.querySelectorAll('.say-w'), { opacity: .13 }, { opacity: 1, stagger: .5, ease: 'none', scrollTrigger: { trigger: el, start: 'top 82%', end: 'bottom 45%', scrub: .4 } });
   });
 
+  // The fall: day burns down to the campfire
+  const fall = document.querySelector('[data-fall]');
+  if (fall) {
+    const pics = fall.querySelectorAll('.fall-pic');
+    gsap.set([pics[1], pics[2]], { clipPath: 'circle(0% at 50% 62%)' });
+    gsap.timeline({ scrollTrigger: { trigger: fall, start: 'top top', end: 'bottom bottom', scrub: .5 } })
+      .fromTo(pics[0].querySelector('img'), { scale: 1.02 }, { scale: 1.3, ease: 'none', duration: 1 }, 0)
+      .to(pics[1], { clipPath: 'circle(120% at 50% 62%)', ease: 'power2.in', duration: .42 }, .08)
+      .fromTo(pics[1].querySelector('img'), { scale: 1.3 }, { scale: 1, ease: 'none', duration: .6 }, .08)
+      .to(pics[2], { clipPath: 'circle(120% at 50% 62%)', ease: 'power2.in', duration: .4 }, .55)
+      .fromTo(pics[2].querySelector('img'), { scale: 1.3 }, { scale: 1, ease: 'none', duration: .45 }, .55);
+    gsap.from(fall.querySelectorAll('.fall-copy>.lead,.fall-copy>.btn'), { y: 40, autoAlpha: 0, stagger: .1, duration: .9, ease: 'power3.out', scrollTrigger: { trigger: fall, start: 'top 30%', once: true } });
+  }
+
   // Closing line swells as it arrives
   document.querySelectorAll('.close h2').forEach((h) => {
     gsap.fromTo(h, { scale: .72 }, { scale: 1, ease: 'none', scrollTrigger: { trigger: h, start: 'top bottom', end: 'center center', scrub: .4 } });
