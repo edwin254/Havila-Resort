@@ -184,6 +184,220 @@ if (page) {
   trace();
 }
 
+// The Falls: one WebGL scene. Water pours in front of the name, the camera pushes through it,
+// then sheets of water wash in each thing Havila offers.
+function startFalls(hero) {
+  const canvas = hero.querySelector('.hero-water');
+  const photoEl = hero.querySelector('.hero-photo img');
+  const gl = canvas.getContext('webgl', { antialias: false, alpha: false, powerPreference: 'high-performance' });
+  if (!gl) return null;
+  const vs = 'attribute vec2 p;varying vec2 v;void main(){v=p*.5+.5;gl_Position=vec4(p,0.,1.);}';
+  const fs = `precision highp float;varying vec2 v;
+  uniform sampler2D tA,tB,tL;uniform vec2 sA,sB,ptr;uniform float time,mixT,falls,zoom,reveal,lScale,mist,speed,ripple,kbA,kbB,ready,over;
+  float h(vec2 p){return fract(sin(dot(p,vec2(127.1,311.7)))*43758.5453);}
+  float n(vec2 p){vec2 i=floor(p),f=fract(p);f=f*f*(3.-2.*f);return mix(mix(h(i),h(i+vec2(1,0)),f.x),mix(h(i+vec2(0,1)),h(i+1.),f.x),f.y);}
+  float fbm(vec2 p){float a=.5,s=0.;for(int i=0;i<4;i++){s+=a*n(p);p*=2.03;a*=.5;}return s;}
+  vec2 cov(vec2 q,vec2 s){return (q-.5)*s+.5;}
+  void main(){
+    vec2 p=vec2(v.x,1.-v.y);
+    vec2 focus=vec2(.56,.5);
+    vec2 q=(p-focus)/zoom+focus;
+    vec2 d=p-ptr;float l=length(d*vec2(sA.y/sA.x,1.));
+    vec2 rip=normalize(d+.0001)*sin(l*46.-time*7.)*exp(-l*6.)*.03*ripple;
+    q+=rip;
+    // Falls stage
+    vec2 ua=cov(q,sA);
+    vec3 base=texture2D(tA,ua).rgb;
+    vec3 base2=texture2D(tA,ua+vec2(0.,.012)).rgb;
+    float lum=dot(base+base2,vec3(.15,.295,.055));
+    float sat=max(max(base.r,base.g),base.b)-min(min(base.r,base.g),base.b);
+    float box=smoothstep(.26,.33,ua.x)*(1.-smoothstep(.84,.92,ua.x))*smoothstep(.1,.2,ua.y)*(1.-smoothstep(.68,.78,ua.y));
+    float m=smoothstep(.2,.5,lum)*(1.-smoothstep(.28,.55,sat))*box*falls;
+    float fast=time*(3.+speed*6.);
+    float s1=n(vec2(ua.x*150.,ua.y*5.-fast));
+    float s2=n(vec2(ua.x*340.+s1,ua.y*11.-fast*1.7));
+    float streak=s1*.6+s2*.4;
+    vec3 ca=texture2D(tA,ua+vec2((streak-.5)*.01*m,(streak-.5)*.05*m)).rgb;
+    ca=mix(ca,vec3(.76+.42*streak),m*.82);
+    // Pool: rocks stay, water below the falls shivers and foams
+    float pool=smoothstep(.66,.74,ua.y)*falls;
+    vec2 pw=vec2(fbm(vec2(ua.x*18.,ua.y*38.-time*.9)),fbm(vec2(ua.x*22.+4.,ua.y*30.-time*1.2)))-.5;
+    ca=mix(ca,texture2D(tA,ua+pw*.022).rgb,pool);
+    float foam=smoothstep(.5,.78,fbm(vec2(ua.x*16.,ua.y*26.-time*1.6)))*smoothstep(.62,.7,ua.y)*(1.-smoothstep(.76,.88,ua.y))*box*falls;
+    ca+=foam*.5;
+    // The name sits behind the water
+    vec2 lc=vec2(.5,.47);
+    vec2 lu=(p-lc)/lScale+lc+vec2(0.,(streak-.5)*.012*m)+rip;
+    float L=texture2D(tL,lu).a*step(0.,lu.x)*step(lu.x,1.)*step(0.,lu.y)*step(lu.y,1.);
+    L*=step(1.-reveal,1.-p.y+.0)+step(.999,reveal);
+    L=min(L,1.)*falls;
+    ca=mix(ca,vec3(.93,.91,.86),L*(1.-m*over)*(1.-foam));
+    // Mist climbs from the base and swallows the frame as you enter
+    float mf=fbm(vec2(p.x*5.+time*.12,p.y*6.+time*.5));
+    float mb=smoothstep(.45,1.,p.y)*.34*falls;
+    float mistA=clamp(mb*mf*1.6+mist*(.55+mf),0.,1.);
+    ca=mix(ca,vec3(.92,.96,.95),mistA);
+    float sp=step(.9965,h(floor(vec2(p.x*90.,p.y*14.-time*(5.+speed*12.)))));
+    ca+=sp*speed*.55*falls;
+    // Offer photos: alive with a slow current
+    vec2 cur=vec2(fbm(p*5.+time*.18),fbm(p*5.+7.-time*.14))-.5;
+    if(falls<.5){ca=texture2D(tA,cov((p-.5)/kbA+.5+cur*.006+rip,sA)).rgb;}
+    // A sheet of water runs down the screen and leaves the next picture behind it
+    float edge=mixT*1.55-.2-(n(vec2(p.x*11.,3.+time*.15))*.26+n(vec2(p.x*43.,8.))*.09);
+    float w=smoothstep(0.,.03,edge-p.y);
+    float band=smoothstep(.0,.05,edge-p.y)*(1.-smoothstep(.05,.2,edge-p.y));
+    vec2 ub=(p-.5)/kbB+.5+cur*.006+rip+vec2(0.,-band*.06)+vec2((n(vec2(p.y*30.,time))-.5)*band*.03,0.);
+    vec3 cb=texture2D(tB,cov(ub,sB)).rgb;
+    vec3 c=mix(ca,cb,w*ready);
+    c+=band*(.3+.4*n(vec2(p.x*130.,p.y*8.-time*5.)))*step(.001,mixT)*ready;
+    gl_FragColor=vec4(c,1.);
+  }`;
+  const sh = (type, src) => { const x = gl.createShader(type); gl.shaderSource(x, src); gl.compileShader(x); return x; };
+  const pr = gl.createProgram();
+  gl.attachShader(pr, sh(gl.VERTEX_SHADER, vs));
+  gl.attachShader(pr, sh(gl.FRAGMENT_SHADER, fs));
+  gl.linkProgram(pr);
+  if (!gl.getProgramParameter(pr, gl.LINK_STATUS)) return null;
+  gl.useProgram(pr);
+  gl.bindBuffer(gl.ARRAY_BUFFER, gl.createBuffer());
+  gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1, -1, 3, -1, -1, 3]), gl.STATIC_DRAW);
+  const loc = gl.getAttribLocation(pr, 'p');
+  gl.enableVertexAttribArray(loc);
+  gl.vertexAttribPointer(loc, 2, gl.FLOAT, false, 0, 0);
+  const cache = {};
+  const U = (n) => cache[n] || (cache[n] = gl.getUniformLocation(pr, n));
+  const makeTex = (src) => {
+    const t = gl.createTexture();
+    gl.activeTexture(gl.TEXTURE3); // Scratch unit, so an upload never disturbs a live binding
+    gl.bindTexture(gl.TEXTURE_2D, t);
+    gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, src);
+    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE);
+    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
+    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR);
+    return t;
+  };
+  const items = hero.querySelectorAll('.offer');
+  const stage = canvas.parentElement;
+  // Slide 0 is the falls; 1 onward are the offers, loaded in the background.
+  const stone = document.createElement('canvas');
+  stone.width = stone.height = 2;
+  const sx = stone.getContext('2d'); sx.fillStyle = '#141B19'; sx.fillRect(0, 0, 2, 2);
+  const slides = [{ el: photoEl }, ...[...items].map((o) => ({ el: o.querySelector('img') })), { tex: makeTex(stone), ratio: 1 }];
+  const loadSlide = (sl) => {
+    if (sl.tex || sl.loading) return;
+    sl.loading = true;
+    const im = new Image();
+    im.onload = () => { sl.tex = makeTex(im); sl.ratio = im.width / im.height; };
+    const want = Math.min(touch ? 1280 : 1800, innerWidth * Math.min(devicePixelRatio || 1, 2));
+    const sizes = sl.el.srcset.split(',').map((x) => x.trim().split(' ')).map(([u, w]) => [u, parseInt(w, 10)]).sort((m, k) => m[1] - k[1]);
+    im.src = (sizes.find(([, w]) => w >= want) || sizes[sizes.length - 1])[0];
+  };
+  const coverOf = (ratio) => { const c = canvas.width / canvas.height; return c > ratio ? [1, ratio / c] : [c / ratio, 1]; };
+  const narrow = innerWidth <= 820;
+  const state = { over: 0, p: 0, target: 0, reveal: 0, ptr: [.5, .4], ptrT: [.5, .4], ripple: 0, running: false, scale: touch ? 1 : Math.min(devicePixelRatio || 1, 1.5), slow: 0, last: 0 };
+  let letters;
+  const drawLetters = () => {
+    const W = Math.min(1800, stage.clientWidth * 1.5), H = W * stage.clientHeight / stage.clientWidth;
+    const c = document.createElement('canvas');
+    c.width = W; c.height = H;
+    const x = c.getContext('2d');
+    x.fillStyle = '#fff'; x.textAlign = 'center'; x.textBaseline = 'middle';
+    let size = 100;
+    x.font = `${size}px Anton, Impact, sans-serif`;
+    size = Math.min(100 * (W * .93) / x.measureText('HAVILA').width, H * .62);
+    x.font = `${size}px Anton, Impact, sans-serif`;
+    x.fillText('HAVILA', W / 2, H * .47);
+    if (letters) gl.deleteTexture(letters);
+    letters = makeTex(c);
+    gl.activeTexture(gl.TEXTURE2);
+    gl.bindTexture(gl.TEXTURE_2D, letters);
+    gl.uniform1i(U('tL'), 2);
+  };
+  const resize = () => {
+    canvas.width = stage.clientWidth * state.scale;
+    canvas.height = stage.clientHeight * state.scale;
+    gl.viewport(0, 0, canvas.width, canvas.height);
+  };
+  const smooth = (a, b, x) => { const t = Math.min(1, Math.max(0, (x - a) / (b - a))); return t * t * (3 - 2 * t); };
+  const COUNT = items.length;
+  const INTRO = .2;
+  let current = -1;
+  const setOffer = (i) => {
+    if (i === current) return;
+    current = i;
+    items.forEach((o, k) => { const on = k === i; o.classList.toggle('on', on); });
+  };
+  const frame = (ms) => {
+    if (!state.running) return;
+    const dt = ms - state.last; state.last = ms;
+    if (dt > 34) { state.slow++; if (state.slow > 90 && state.scale > .7) { state.scale = Math.max(.7, state.scale * .75); state.slow = 0; resize(); } } else if (state.slow > 0) state.slow -= .25;
+    state.p += (state.target - state.p) * .09;
+    state.ptr[0] += (state.ptrT[0] - state.ptr[0]) * .08;
+    state.ptr[1] += (state.ptrT[1] - state.ptr[1]) * .08;
+    state.ripple *= .975;
+    const p = state.p;
+    let a, b, mixT, kbA = 1.04, kbB = 1.04;
+    if (p < INTRO) { a = 0; b = 1; mixT = smooth(.145, INTRO, p); } else {
+      const seg = Math.min(COUNT - .0001, (p - INTRO) / (1 - INTRO) * COUNT);
+      const i = Math.floor(seg), f = seg - i;
+      a = i + 1; b = i + 2;
+      mixT = smooth(i === COUNT - 1 ? .6 : .72, i === COUNT - 1 ? .96 : 1, f);
+      kbA = 1.16 - f * .12; kbB = 1.16;
+    }
+    const shown = a === 0 ? 0 : (mixT > .55 ? b - 1 : a - 1);
+    setOffer(p < INTRO * .92 || shown >= COUNT ? -1 : shown);
+    hero.classList.toggle('in-offers', p >= INTRO * .92);
+    hero.classList.toggle('reel-done', shown >= COUNT);
+    loadSlide(slides[a]); loadSlide(slides[b]); if (slides[b + 1]) loadSlide(slides[b + 1]);
+    const A = slides[a], B = slides[b];
+    if (A.tex) {
+      gl.activeTexture(gl.TEXTURE0); gl.bindTexture(gl.TEXTURE_2D, A.tex); gl.uniform1i(U('tA'), 0);
+      gl.activeTexture(gl.TEXTURE1); gl.bindTexture(gl.TEXTURE_2D, (B.tex || A.tex)); gl.uniform1i(U('tB'), 1);
+      const ca = coverOf(A.ratio), cb = coverOf((B.tex ? B : A).ratio);
+      gl.uniform2f(U('sA'), ca[0], ca[1]); gl.uniform2f(U('sB'), cb[0], cb[1]);
+      const intro = Math.min(1, p / INTRO);
+      gl.uniform1f(U('falls'), a === 0 ? 1 : 0);
+      gl.uniform1f(U('time'), ms / 1000);
+      gl.uniform1f(U('mixT'), mixT);
+      gl.uniform1f(U('ready'), B.tex ? 1 : 0);
+      gl.uniform1f(U('zoom'), 1 + Math.pow(intro, 2) * 2.1);
+      gl.uniform1f(U('lScale'), 1 + Math.pow(intro, 3) * 7);
+      gl.uniform1f(U('reveal'), state.reveal);
+      gl.uniform1f(U('over'), state.over);
+      gl.uniform1f(U('mist'), smooth(.1, .17, p));
+      gl.uniform1f(U('speed'), intro);
+      gl.uniform1f(U('kbA'), kbA); gl.uniform1f(U('kbB'), kbB);
+      gl.uniform1f(U('ripple'), Math.min(1, state.ripple));
+      gl.uniform2f(U('ptr'), state.ptr[0], state.ptr[1]);
+      gl.drawArrays(gl.TRIANGLES, 0, 3);
+    }
+    requestAnimationFrame(frame);
+  };
+  state.play = () => { if (!state.running) { state.running = true; requestAnimationFrame(frame); } };
+  state.pause = () => { state.running = false; };
+  const begin = () => {
+    resize();
+    drawLetters();
+    loadSlide(slides[0]);
+    hero.classList.add('gl-on');
+    canvas.classList.add('live');
+    gsap.to(state, { reveal: 1, duration: 1.5, ease: 'power3.out', delay: .15 });
+    gsap.to(state, { over: narrow ? .28 : .8, duration: 2.2, ease: 'power2.inOut', delay: 1.7 });
+    state.play();
+  };
+  (document.fonts ? document.fonts.load('100px Anton').then(() => document.fonts.ready) : Promise.resolve()).then(begin, begin);
+  addEventListener('resize', () => { resize(); drawLetters(); });
+  const move = (e) => {
+    const r = stage.getBoundingClientRect();
+    state.ptrT = [(e.clientX - r.left) / r.width, (e.clientY - r.top) / r.height];
+    state.ripple = Math.min(1.4, state.ripple + .1);
+  };
+  stage.addEventListener('pointermove', move, { passive: true });
+  stage.addEventListener('pointerdown', (e) => { move(e); state.ptr = [...state.ptrT]; state.ripple = 1.4; }, { passive: true });
+  state.setOffer = setOffer;
+  return state;
+}
+
 // Motion system. Everything is visible without it; tweens animate from hidden only once GSAP runs.
 function splitWords(el) {
   const label = [...el.childNodes].map((c) => c.textContent).join(' ').trim().replace(/\s+/g, ' ');
