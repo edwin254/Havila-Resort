@@ -61,8 +61,7 @@ ${preview ? '<meta name="robots" content="noindex,nofollow">' : ''}
 ${page.body}
 </main>
 <footer class="foot">
-  <svg class="edge edge-top" viewBox="0 0 1440 60" preserveAspectRatio="none" aria-hidden="true"><path d="M0 60V28c120-30 240-30 360-6s240 34 360 8 240-36 360-10 240 30 360 6v34z" fill="#101E1A"/></svg>
-  <div class="foot-inner">
+    <div class="foot-inner">
     <div class="foot-sign">
       <p class="foot-word">Havila</p>
       <p class="foot-line">On the River Tana, Sagana</p>
