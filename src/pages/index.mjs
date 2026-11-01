@@ -401,7 +401,7 @@ const plan = () => ({
 
 const credits = () => ({
   path: '/credits', title: 'Photo credits | Havila Resort', desc: 'Credits and licences for the sample photos used on this site.',
-  body: `<section class="head w-lime"><div class="wrap"><h1 class="painted" style="font-size:clamp(2.6rem,1.4rem + 5vw,5rem)">Photo credits</h1><p class="lead">Photos tagged “Sample photo” are stand-ins from other places. They’ll be replaced with Havila’s own.</p>
+  body: `<section class="head w-lime"><div class="wrap"><h1 style="font-size:clamp(2.6rem,1.4rem + 5vw,5rem)">Photo credits</h1><p class="lead">Photos tagged “Sample photo” are stand-ins from other places. They’ll be replaced with Havila’s own.</p>
   <div class="scroll-x"><table class="credit-table"><thead><tr><th>Photo</th><th>By</th><th>Licence</th></tr></thead><tbody>
   ${Object.values(photos).filter((p) => p.sample).map((p) => `<tr><td><a href="${p.credit[2]}" rel="noopener">${p.alt}</a></td><td>${p.credit[0]}</td><td>${p.credit[1]}</td></tr>`).join('')}
   </tbody></table></div></div></section>`,
@@ -409,7 +409,7 @@ const credits = () => ({
 
 const notFound = () => ({
   path: '/404', title: 'Lost on the river | Havila Resort', desc: 'This page has floated away.',
-  body: `<section class="head w-sky close" style="min-height:70vh"><div class="wrap"><h1 class="painted"><span class="flourish">Oops, you’ve</span>drifted off</h1><p class="lead">This page has gone over the falls. Let’s get you back to shore.</p><div class="actions"><a class="btn" href="/">Back to the home page</a><a class="btn btn-alt" href="/plan/">Plan your stay</a></div></div></section>`,
+  body: `<section class="head w-sky close" style="min-height:70vh"><div class="wrap"><h1><span class="flourish">Oops, you’ve</span>drifted off</h1><p class="lead">This page has gone over the falls. Let’s get you back to shore.</p><div class="actions"><a class="btn" href="/">Back to the home page</a><a class="btn btn-alt" href="/plan/">Plan your stay</a></div></div></section>`,
 });
 
 export const pages = () => [home(), stay(), adventures(), campingPage(), barizi(), events(), rates(), visit(), plan(), credits(), notFound()];
