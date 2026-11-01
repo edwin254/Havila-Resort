@@ -246,16 +246,16 @@ const campingPage = () => ({
 const barizi = () => ({
   path: '/barizi', title: 'Barizi Restaurant on the hill | Havila Resort, Sagana', desc: 'Barizi Restaurant sits on a hill at Havila Resort, facing Mt. Kenya, the Aberdares and the Gaturi Hills. Local and international food, some from the garden.',
   body: `<section class="head w-tana calm"><div class="wrap head-grid">
-    <div class="t"><h1 class="painted"><span class="flourish">Barizi.</span>Sit. Stay. Eat.</h1><p class="lead">The hill has the best seats in Sagana: Mt. Kenya, the Aberdares, the Gaturi Hills and a plate of something hot.</p></div>
-    <div class="m">${photo('terrace', { sizes: '(max-width:820px) 92vw, 40vw', cls: 'frame tilt-r', eager: true })}</div>
+    <div class="t"><h1><span class="flourish">Barizi.</span>Pull up a chair.</h1><p class="lead">The hill has the best seats in Sagana: Mt. Kenya, the Aberdares, the Gaturi Hills and a plate of something hot.</p></div>
+    <div class="m">${photo('plate', { sizes: '(max-width:820px) 92vw, 40vw', eager: true })}</div>
   </div></section>
   <section class="sec w-lime calm">${edge('#FFF8E1')}<div class="wrap split">
-    <div class="t"><h2 class="painted"><span class="flourish">Straight from</span>the garden</h2><p class="lead">Our resident chef and team cook local and international food. Some of what lands on your plate was picked from the garden that day.</p><p>The dinner buffet is the one guests bring up most. Come hungry, and if you’ve just been rafting, you will.</p></div>
-    <div class="m" style="padding-right:18px">${photo('buffet', { sizes: '(max-width:820px) 90vw, 50vw', cls: 'frame' })}</div>
+    <div class="t"><h2><span class="flourish">Straight from</span>the garden</h2><p class="lead">Local and international, some of it picked from the garden that day.</p></div>
+    <div class="m" style="padding-right:18px">${photo('flatlay', { sizes: '(max-width:820px) 90vw, 50vw' })}</div>
   </div></section>
   <section class="sec w-marigold calm">${edge('#FFB703')}<div class="wrap split flip">
-    <div class="t"><h2 class="painted"><span class="flourish">Not staying?</span>Come anyway.</h2><p class="lead">Stopping on the A2 for a meal? Come up the hill. Bringing a group? Tell us ahead of time so the kitchen’s ready.</p><div class="actions"><a class="btn" href="${waFree('Hello Barizi, I would like to book a table.')}" rel="noopener">Book a table on WhatsApp</a></div></div>
-    <div class="m" style="padding-right:18px">${photo('dining-hall', { sizes: '(max-width:820px) 90vw, 50vw', cls: 'frame' })}</div>
+    <div class="t"><h2><span class="flourish">Not staying?</span>Come anyway.</h2><p class="lead">Stopping on the A2 for a meal? Come up the hill. Bringing a group? Tell us ahead of time so the kitchen’s ready.</p><div class="actions"><a class="btn" href="${waFree('Hello Barizi, I would like to book a table.')}" rel="noopener">Book a table on WhatsApp</a></div></div>
+    <div class="m" style="padding-right:18px">${photo('grill', { sizes: '(max-width:820px) 90vw, 50vw' })}</div>
   </div></section>`,
 });
 
