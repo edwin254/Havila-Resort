@@ -138,8 +138,8 @@ FORM: Cinematic scroll film with the river and raft as the through-line.
 });
 
 const roomMosaic = [
-  ['room-log', 'r1', 'Log walls, hill view'], ['room-canvas', 'r2', 'Canvas walls and a lantern'],
-  ['room-bay', 'r3', 'Bay window over the hills'], ['room-red', 'r4', 'Orange and red, wide bed'], ['room-tuft', 'r5', 'Modern, tufted headboard'],
+  ['room-glass', 'r1', 'Wide windows on the hills'], ['room-log', 'r2', 'Log walls, hill view'],
+  ['room-cream', 'r3', 'Bright and calm'], ['room-canvas', 'r4', 'Canvas walls and a lantern'], ['room-modern', 'r5', 'Modern and warm'],
 ];
 
 const rateTable = (key) => {
@@ -151,27 +151,31 @@ const campTable = `<table class="rate"><caption>Camping</caption><thead><tr><th 
   ${camping.map((c) => `<tr><td>${c.name}</td><td class="num">${price(c.res[0], c.non[0])}</td><td class="num">${price(c.res[1], c.non[1])}</td></tr>`).join('')}
   <tr><td>Bring your own tent, per person</td><td class="num" colspan="2">${price(ownTent.res, ownTent.non)}</td></tr></tbody></table>`;
 
+const roomRows = [
+  ['room-warm', 'Executive Room', 'More room to spread out after a day on the river.', [9000, 90], 'executive'],
+  ['room-classic', 'Standard Room', 'Everything you need, and a view of the hills.', [7000, 70], 'standard'],
+];
+
 const stay = () => ({
   path: '/stay', title: 'Rooms at Havila Resort, Sagana', desc: 'Individually themed Standard and Executive rooms facing Kirengete Falls and the Gaturi Hills, with bed and breakfast, half board or full board.',
-  body: `<section class="head w-tana calm"><div class="wrap head-grid">
-    <div class="t"><h1 class="painted"><span class="flourish">No two</span>rooms alike</h1><p class="lead">Each room has its own theme, from modern to exotic to African. They share the view: Kirengete Falls and the Gaturi Hills.</p></div>
-    <div class="m">${photo('room-bay', { sizes: '(max-width:820px) 92vw, 40vw', cls: 'frame tilt-r', eager: true })}</div>
+  body: `<section class="head w-tana"><div class="wrap head-grid">
+    <div class="t"><h1><span class="flourish">Come in.</span>Take your boots off.</h1><p class="lead">No two rooms alike, and every window looks to the falls or the Gaturi Hills.</p>
+    <div class="actions"><a class="btn" href="/plan/?stay=standard">Plan a stay</a>${resToggle}</div></div>
+    <div class="m">${photo('room-deck', { sizes: '(max-width:820px) 92vw, 40vw', eager: true })}</div>
   </div></section>
-  <section class="sec w-lime calm">${edge('#FFF8E1')}<div class="wrap">
-    <h2 class="painted"><span class="flourish">Have a</span>look inside</h2>
+  <section class="sec w-lime"><div class="wrap">
+    ${roomRows.map(([ph, name, text, p, id]) => `<article class="act-feature">
+      <div class="m">${photo(ph, { sizes: '(max-width:820px) 92vw, 58vw' })}<span class="flash">From ${price(p[0], p[1])}<small>a night with breakfast</small></span></div>
+      <div class="t"><h2 style="font-size:clamp(2.4rem,1.2rem + 4vw,5rem)">${name}</h2><p>${text}</p><a class="btn btn-small" href="/plan/?stay=${id}">Plan this room</a></div>
+    </article>`).join('')}
+    <h2><span class="flourish">Have a</span>look inside</h2>
     <div class="rooms">${roomMosaic.map(([n, c, cap]) => `<button type="button" class="${c}" data-lb aria-label="View larger: ${cap}">${photo(n, { sizes: '(max-width:640px) 92vw, 50vw' })}<span class="rm-cap">${cap}</span></button>`).join('')}</div>
-    <dialog class="lb" id="lb" aria-label="Larger room photo"><img alt=""><p></p><form method="dialog"><button class="btn btn-small btn-alt">Close</button></form></dialog>
+    <dialog class="lb" id="lb" aria-label="Larger room photo"><img alt=""><p></p><form method="dialog"><button class="btn btn-small">Close</button></form></dialog>
   </div></section>
-  <section class="sec w-tana calm">${edge('#07564A')}<div class="wrap">
-    <h2 class="painted"><span class="flourish">What a night</span>costs</h2>
-    <div class="actions" style="margin:0 0 28px">${resToggle}</div>
+  <section class="sec w-tana"><div class="wrap">
+    <h2><span class="flourish">What a night</span>costs</h2>
     <div class="boards"><div class="board">${rateTable('standard')}</div><div class="board">${rateTable('executive')}</div></div>
-    <p class="board-note" style="margin-top:2em">Bed & Breakfast includes breakfast, Half Board adds one main meal, and Full Board adds lunch and dinner. Check in from 3:00 pm and check out by 10:00 am. If you’ll arrive after 5:00 pm, let us know in advance.</p>
-    <div class="actions"><a class="btn btn-alt" href="/plan/?stay=standard">Plan a room stay</a></div>
-  </div></section>
-  <section class="sec w-lime calm">${edge('#FFF8E1')}<div class="wrap split">
-    <div class="t"><h2 class="painted"><span class="flourish">Every room</span>comes with</h2></div>
-    <div class="m"><ul class="bullets lead"><li>Private bathroom</li><li>TV with cable channels</li><li>A desk, for the few who bring work</li><li>Housekeeping and a 24-hour front desk</li><li>Free Wi-Fi and free parking</li></ul></div>
+    <p class="board-note" style="margin-top:2em">Check in from 3:00 pm. Check out by 10:00 am. Free Wi-Fi, free parking and a 24-hour front desk.</p>
   </div></section>`,
 });
 
