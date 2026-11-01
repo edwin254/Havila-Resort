@@ -398,6 +398,29 @@ function startFalls(hero) {
   return state;
 }
 
+// The sound of the falls, generated in the browser and only on request
+function setupSound(btn, hero) {
+  let ctx, gain;
+  btn.addEventListener('click', () => {
+    if (!ctx) {
+      ctx = new (window.AudioContext || window.webkitAudioContext)();
+      const len = ctx.sampleRate * 4;
+      const buf = ctx.createBuffer(2, len, ctx.sampleRate);
+      for (let c = 0; c < 2; c++) { const d = buf.getChannelData(c); let l = 0; for (let i = 0; i < len; i++) { l = (l + .04 * (Math.random() * 2 - 1)) / 1.04; d[i] = l * 3.2; } }
+      const src = ctx.createBufferSource(); src.buffer = buf; src.loop = true;
+      const f = ctx.createBiquadFilter(); f.type = 'lowpass'; f.frequency.value = 1500;
+      gain = ctx.createGain(); gain.gain.value = 0;
+      src.connect(f).connect(gain).connect(ctx.destination); src.start();
+      ScrollTrigger.create({ trigger: hero, start: 'top top', end: 'bottom top', onUpdate: (s) => { if (btn.getAttribute('aria-pressed') === 'true') gain.gain.setTargetAtTime(.5 * (1 - s.progress), ctx.currentTime, .2); } });
+    }
+    const on = btn.getAttribute('aria-pressed') !== 'true';
+    btn.setAttribute('aria-pressed', on);
+    btn.textContent = on ? 'Mute the falls' : 'Hear the falls';
+    ctx.resume();
+    gain.gain.setTargetAtTime(on ? .5 : 0, ctx.currentTime, .3);
+  });
+}
+
 // Motion system. Everything is visible without it; tweens animate from hidden only once GSAP runs.
 function splitWords(el) {
   const label = [...el.childNodes].map((c) => c.textContent).join(' ').trim().replace(/\s+/g, ' ');
