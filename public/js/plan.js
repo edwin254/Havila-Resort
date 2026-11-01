@@ -107,15 +107,6 @@ function estimate() {
   $('leave-field').hidden = isDay;
   ['arrive', 'leave', 'adults', 'kids'].forEach((id) => mark(id, issues[id]));
 
-  [...$('stay').options].forEach((o) => {
-    o.textContent = o.dataset.label || (o.dataset.label = o.textContent);
-    let from = null;
-    if (D.rooms[o.value]) from = D.rooms[o.value][mode].bb[0];
-    const camp = D.camping.find((c) => c.id === o.value);
-    if (camp) from = camp[mode][0];
-    if (o.value === 'own-tent') from = D.ownTent[mode];
-    if (from != null) o.textContent = `${o.dataset.label}: from ${fmt(from, mode)}`;
-  });
   document.querySelectorAll('[data-act-price]').forEach((el) => {
     const a = D.activities.find((x) => x.id === el.dataset.actPrice);
     el.textContent = a[mode] == null ? 'Ask us' : fmt(a[mode], mode);
