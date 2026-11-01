@@ -349,3 +349,10 @@ ul.lead li a{display:inline-block;padding:.5em 0}
   .print-budget main>*:not(:has(#budget)),.print-budget .foot,.print-budget .budget-tools,.print-budget #b-send{display:none}
 }
 
+/* Page tops stay dark so the header always reads */
+.head.w-lime,.head.w-marigold{--wall:var(--stone-2);--fg:var(--bone);--muted:var(--bone-dim);--accent:var(--glacier)}
+.head.w-lime .btn::before,.head.w-marigold .btn::before{background:var(--bone)}
+.head.w-lime .btn:hover,.head.w-marigold .btn:hover{color:var(--ink)}
+.tile .flash{bottom:24px}
+.fall .sample-tag{right:auto;left:0;top:60px}
+
