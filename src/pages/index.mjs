@@ -220,26 +220,26 @@ const campingPage = () => ({
   path: '/camping', title: 'Camping on the River Tana | Havila Resort, Sagana', desc: 'Camp by the river at Havila Resort: bring your own tent or use ours, with breakfast or full board. Fires, stars, falls and a rapid for breakfast.',
   bodyClass: '',
   body: `<section class="head w-night"><div class="wrap head-grid">
-    <div class="t"><h1 class="painted"><span class="flourish">Leave the</span>walls behind</h1><p class="lead">A fire. A tent. A waterfall doing the talking. Then coffee, and a river to fall into.</p><div class="actions"><a class="btn btn-alt" href="/plan/?stay=camp-only">Plan a camp</a>${resToggle}</div></div>
-    <div class="m">${photo('tents-mist', { sizes: '(max-width:820px) 92vw, 40vw', cls: 'frame tilt-r', eager: true })}</div>
+    <div class="t"><h1><span class="flourish">Leave the</span>walls behind</h1><p class="lead">A fire. A tent. A waterfall doing the talking. Then coffee, and a river to fall into.</p><div class="actions"><a class="btn" href="/plan/?stay=camp-only">Plan a camp</a>${resToggle}</div></div>
+    <div class="m">${photo('tents-mist', { sizes: '(max-width:820px) 92vw, 40vw', cls: '', eager: true })}</div>
   </div></section>
   <section class="sec w-tana">${edge('#07564A')}<div class="wrap boards">
     <div class="board">${campTable}<p class="board-note">Up for a bigger camp? School groups, clubs and offices get in touch and we’ll work it out with you.</p></div>
     <div>
-      <h2 class="painted" style="font-size:clamp(2rem,1.2rem + 3vw,3.6rem)"><span class="flourish">How a camp</span>weekend goes</h2>
+      <h2 style="font-size:clamp(2rem,1.2rem + 3vw,3.6rem)"><span class="flourish">How a camp</span>weekend goes</h2>
       <ol class="steps-list">
-        <li><span><strong>Friday, after work.</strong> Up the A2, tents up by the river, fire going, something on the grill. Tell us before 5 pm if you’ll get in late.</span></li>
-        <li><span><strong>Saturday, wet.</strong> Breakfast, then rafting or kayaking. Quads and archery if you still have knees left.</span></li>
-        <li><span><strong>Saturday, late.</strong> Climb to Barizi for the dinner buffet and the view of Mt. Kenya, then back to the fire.</span></li>
-        <li><span><strong>Sunday, slow.</strong> The nature trail, the swaying bridge, a last look at the falls, and home before the traffic.</span></li>
+        <li><span><strong>Friday.</strong> Up the A2, tents up, fire going.</span></li>
+        <li><span><strong>Saturday.</strong> Raft, ride, shoot.</span></li>
+        <li><span><strong>Saturday night.</strong> Buffet at Barizi, back to the fire.</span></li>
+        <li><span><strong>Sunday.</strong> The bridge, the falls, home.</span></li>
       </ol>
     </div>
   </div></section>
   <section class="sec w-tomato">${edge('#F2502F')}<div class="wrap split flip">
-    <div class="t"><h2 class="painted"><span class="flourish">What to</span>pack</h2>
+    <div class="t"><h2><span class="flourish">What to</span>pack</h2>
     <ul class="bullets lead"><li>Your tent, if you’re bringing one</li><li>Closed shoes that can get wet</li><li>A warm layer for the night</li><li>A torch, sun cream and bug spray</li><li>Clothes you don’t love</li></ul>
     <p class="small">Sorry, no pets. The camping area has rough ground, so talk to us first if anyone in your group has limited mobility.</p></div>
-    <div class="m" style="padding-right:18px">${photo('tent-view', { sizes: '(max-width:820px) 90vw, 46vw', cls: 'frame' })}</div>
+    <div class="m" style="padding-right:18px">${photo('tent-view', { sizes: '(max-width:820px) 90vw, 46vw', cls: '' })}</div>
   </div></section>`,
 });
 
