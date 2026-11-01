@@ -433,3 +433,41 @@ html:not(.motion) .strip{overflow-x:auto;transform:none}
 main .close-pic{transform:none!important}
 .head .pic img{aspect-ratio:4/3}
 
+/* ---- The Falls: the opening scene ---- */
+.motion .hero{height:760svh}
+.hero-word{transition:opacity .4s}
+.gl-on .hero-word{opacity:0}
+.hero-shade{background:linear-gradient(180deg,rgba(13,19,18,.3),transparent 22%,transparent 60%,rgba(13,19,18,.68))}
+.in-offers .hero-shade{background:linear-gradient(180deg,rgba(13,19,18,.25),transparent 30%,transparent 42%,rgba(13,19,18,.82))}
+.hero-tag{font-size:clamp(1.4rem,1.1rem + 1.5vw,2.5rem);max-width:17em}
+.scroll-cue{font-weight:600;font-size:.95rem;display:inline-flex;align-items:center;gap:.7em}
+.scroll-cue::after{content:"";display:block;width:2px;height:34px;background:currentColor;transform-origin:top;animation:cue 1.8s var(--ease) infinite}
+@keyframes cue{0%{transform:scaleY(0)}60%{transform:scaleY(1)}100%{transform:scaleY(1) translateY(100%);opacity:0}}
+.offers{display:block}
+html:not(.motion) .hero{height:auto}
+html:not(.motion) .hero-stage{position:relative;height:auto;overflow:visible}
+html:not(.motion) .hero-photo{position:relative;height:100svh}
+html:not(.motion) .hero-copy{height:100svh;bottom:auto}
+html:not(.motion) .hero-shade,html:not(.motion) .sound{display:none}
+html:not(.motion) .offer{position:relative;display:block;height:70svh;color:var(--bone);text-decoration:none;overflow:hidden}
+html:not(.motion) .offer-pic{position:absolute;inset:0;transform:none!important}
+.motion .offers{position:absolute;inset:0;z-index:4;pointer-events:none}
+.motion .offer{position:absolute;inset:0;color:var(--bone);text-decoration:none;visibility:hidden;transition:visibility 0s .5s}
+.motion .offer.on{visibility:visible;pointer-events:auto;transition-delay:0s}
+.motion .offer-pic{position:absolute!important;inset:0;transform:none!important;opacity:0;transition:opacity .6s;background:none}
+.motion .offer.on .offer-pic{opacity:1}
+.gl-on .offer-pic{display:none}
+.sample-tag{border-radius:0 0 0 8px}
+.offer-word{position:absolute;left:var(--gutter);right:var(--gutter);bottom:clamp(120px,15svh,160px);overflow:hidden;font:400 clamp(6rem,2rem + 21vw,23rem)/.9 var(--display);text-transform:uppercase;padding-top:.04em}
+.offer-word>span{display:block}
+.motion .offer-word>span{transform:translateY(112%) rotate(4deg);transform-origin:left bottom;transition:transform .9s var(--ease)}
+.motion .offer.on .offer-word>span{transform:none}
+.offer-line{position:absolute;left:var(--gutter);right:var(--gutter);bottom:clamp(76px,9svh,100px);font-weight:600;font-size:clamp(1.05rem,.95rem + .5vw,1.5rem)}
+.offer-line b{font:400 1.25em/1 var(--display);color:var(--glacier);letter-spacing:.02em;white-space:nowrap}
+.motion .offer-line{opacity:0;transform:translateY(16px);transition:opacity .5s,transform .7s var(--ease)}
+.motion .offer.on .offer-line{opacity:1;transform:none;transition-delay:.15s}
+@media (min-width:821px){.offer-word{bottom:clamp(70px,10svh,110px)}.offer-line{bottom:clamp(34px,5svh,50px)}}
+.sound{position:absolute;right:var(--gutter);bottom:clamp(76px,10svh,100px);z-index:5;background:rgba(13,19,18,.55);color:var(--bone);border:0;border-radius:99px;padding:.65em 1.1em;min-height:44px;font:600 .9rem var(--body);cursor:pointer;backdrop-filter:blur(8px)}
+@media (min-width:821px){.sound{bottom:30px}}
+.sound[aria-pressed=true]{background:var(--glacier);color:var(--ink)}
+
