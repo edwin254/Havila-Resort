@@ -256,6 +256,7 @@ $('plan-reset').addEventListener('click', () => {
   window.havilaDraft.write({});
   window.havilaCount();
   form.reset();
+  $('leave').min = today;
   $('form-error').hidden = true;
   $('form-sent').hidden = true;
   estimate();
