@@ -368,3 +368,14 @@ main section:not(.hero):not(.fall){overflow-x:clip}
 .fall-price{font:400 clamp(1.5rem,1.2rem + 1.4vw,2.6rem)/1 var(--display);text-transform:uppercase;margin:0 0 .7em}
 .from{font:400 clamp(1.2rem,1rem + .9vw,1.9rem)/1 var(--display);text-transform:uppercase}
 
+/* The pile */
+.pile{position:relative;background:var(--stone-2);overflow:clip;padding-block:60px}
+.pile-stage{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,420px),1fr));gap:24px;padding-inline:var(--gutter)}
+.pile-card{position:relative;transform:rotate(-2deg)}
+.pile-card:nth-child(even){transform:rotate(2deg)}
+.pile-card .pic img{aspect-ratio:3/2}
+.pile-cap{position:absolute;left:0;bottom:0;background:var(--glacier);color:var(--ink);font:400 clamp(1.5rem,1.1rem + 2vw,3.4rem)/1 var(--display);text-transform:uppercase;padding:.25em .5em;z-index:3}
+.motion .pile{height:520svh;padding:0}
+.motion .pile-stage{position:sticky;top:0;height:100svh;display:block;padding:0;overflow:hidden}
+.motion .pile-card{position:absolute;left:50%;top:50%;width:min(88vw,calc(78svh * 1.5),1180px);margin-left:calc(min(88vw,calc(78svh * 1.5),1180px) / -2);margin-top:calc(min(88vw,calc(78svh * 1.5),1180px) / -3);will-change:transform,filter;box-shadow:0 26px 60px rgba(0,0,0,.55)}
+
