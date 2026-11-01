@@ -175,7 +175,7 @@ function estimate() {
   }
 
   const needsDates = valid && !isDay && !nights;
-  const label = needsDates ? 'Per night, for now' : unknown ? 'Estimate so far' : 'Estimate';
+  const label = needsDates ? 'Per night' : unknown ? 'Estimate so far' : 'Estimate';
   $('sum-lines').innerHTML = '';
   lines.forEach(([l, v]) => {
     const row = document.createElement('div');
