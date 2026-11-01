@@ -572,3 +572,5 @@ html:not(.motion) .skip-reel,html:not(.motion) .scroll-cue,html:not(.motion) .of
 .sum-total span:last-child{white-space:nowrap;margin-left:auto}
 .plan-bar-go{border-radius:99px;padding-inline:1em}
 .concept{max-width:70ch;margin-inline:calc((100% - min(100% - 2*var(--gutter),var(--wide)))/2) auto}
+/* Raft on the phone rail */
+.river-raft.rail{z-index:2;width:44px}
