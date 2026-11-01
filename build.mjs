@@ -16,7 +16,7 @@ await fs.cp('public', dist, { recursive: true });
 
 const fonts = [
   ['figtree', 'figtree-latin-400-normal'], ['figtree', 'figtree-latin-600-normal'], ['figtree', 'figtree-latin-800-normal'],
-  ['bowlby-one', 'bowlby-one-latin-400-normal'], ['oleo-script', 'oleo-script-latin-700-normal'],
+  ['anton', 'anton-latin-400-normal'],
 ];
 await fs.mkdir(`${dist}/fonts`, { recursive: true });
 for (const [pkg, file] of fonts) {
