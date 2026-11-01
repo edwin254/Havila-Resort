@@ -355,37 +355,29 @@ const plan = () => ({
   bodyClass: 'page-plan',
   scripts: '<script src="/js/data.js" defer></script><script src="/js/plan.js" defer></script>',
   body: `<section class="head w-marigold" style="padding-bottom:clamp(40px,5vw,70px)"><div class="wrap">
-    <h1 class="painted"><span class="flourish">Build</span>your Havila</h1>
+    <h1><span class="flourish">Build</span>your Havila</h1>
     <p class="lead">Tick what you want and watch the estimate update. Send it to the front desk in one tap, and they’ll confirm dates and the final price.</p>
   </div></section>
   <section class="sec w-lime" style="padding-top:clamp(50px,6vw,80px)">${edge('#FFF8E1')}<div class="wrap">
     <form id="plan" class="planner" novalidate>
       <div>
-        <fieldset class="step"><legend>Which rate?</legend>${resToggle}</fieldset>
-        <fieldset class="step"><legend>When, and who’s coming?</legend>
-          <div class="fields">
-            <div class="field"><label for="arrive">Arriving</label><input id="arrive" type="date" required><p class="err" hidden></p></div>
-            <div class="field" id="leave-field"><label for="leave">Leaving</label><input id="leave" type="date"><p class="err" hidden></p></div>
-            <div class="field"><label for="adults">Adults</label><input id="adults" type="number" min="1" max="500" step="1" value="2" inputmode="numeric"><p class="err" hidden></p></div>
-            <div class="field"><label for="kids">Children</label><input id="kids" type="number" min="0" max="200" step="1" value="0" inputmode="numeric"><p class="err" hidden></p></div>
-          </div>
-        </fieldset>
-        <fieldset class="step"><legend>Where will you sleep?</legend>
-          <div class="fields">
-            <div class="field"><label for="stay">Stay</label><select id="stay">
+        <div class="rate-row">${resToggle}</div>
+        <fieldset class="step sentence"><legend class="sr">Your dates, group and stay</legend>
+          <div class="field num"><span class="w">We’re</span><input id="adults" type="number" min="1" max="500" step="1" value="2" inputmode="numeric"><label for="adults">adults</label><p class="err" hidden></p></div>
+          <div class="field num"><span class="w">and</span><input id="kids" type="number" min="0" max="200" step="1" value="0" inputmode="numeric"><label for="kids">children,</label><p class="err" hidden></p></div>
+          <div class="field"><label for="arrive">arriving</label><input id="arrive" type="date" required><p class="err" hidden></p></div>
+          <div class="field" id="leave-field"><label for="leave">and leaving</label><input id="leave" type="date"><p class="err" hidden></p></div>
+          <div class="field"><label for="stay">We’ll stay in</label><select id="stay">
               <option value="standard">Standard room</option><option value="executive">Executive room</option>
               <option value="camp-only">Camping, tent provided</option><option value="camp-bb">Camping with breakfast</option><option value="camp-fb">Camping full board</option>
-              <option value="own-tent">Bringing my own tent</option><option value="day">Just a day visit</option></select></div>
-            <div class="field" id="meal-field"><label for="meal">Meals</label><select id="meal"><option value="bb">Bed & Breakfast</option><option value="hb">Half Board: breakfast + one meal</option><option value="fb">Full Board: all meals</option></select></div>
-          </div>
+              <option value="own-tent">Our own tent</option><option value="day">Just a day visit</option></select></div>
+          <div class="field" id="meal-field"><label for="meal">with</label><select id="meal"><option value="bb">breakfast only</option><option value="hb">breakfast + one meal</option><option value="fb">all meals</option></select></div>
         </fieldset>
-        <fieldset class="step"><legend>What will you do?</legend><div class="picks" id="activity-picks"></div></fieldset>
-        <fieldset class="step"><legend>Who do we reply to?</legend>
-          <div class="fields">
-            <div class="field"><label for="name">Your name</label><input id="name" autocomplete="name" maxlength="80"><p class="err" hidden></p></div>
-            <div class="field"><label for="phone">Phone (optional)</label><input id="phone" type="tel" autocomplete="tel" inputmode="tel" maxlength="24"></div>
-          </div>
-          <div class="field" style="margin-top:16px"><label for="notes">Anything else? (optional)</label><textarea id="notes" rows="3" maxlength="500" placeholder="Birthdays, dietary needs, a late arrival"></textarea></div>
+        <fieldset class="step"><legend>And we want to…</legend><div class="picks" id="activity-picks"></div></fieldset>
+        <fieldset class="step sentence"><legend class="sr">Your details</legend>
+          <div class="field"><label for="name">I’m</label><input id="name" autocomplete="name" maxlength="80" placeholder="your name"><p class="err" hidden></p></div>
+          <div class="field"><label for="phone">reach me on</label><input id="phone" type="tel" autocomplete="tel" inputmode="tel" maxlength="24" placeholder="phone (optional)"></div>
+          <div class="field notes"><label for="notes" class="sr">Anything else? (optional)</label><textarea id="notes" rows="2" maxlength="500" placeholder="Birthdays, dietary needs, a late arrival…"></textarea></div>
         </fieldset>
       </div>
       <aside class="summary board" id="summary">
