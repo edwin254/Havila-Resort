@@ -314,7 +314,7 @@ const events = () => ({
 const rates = () => ({
   path: '/rates', title: 'Rates 2026 | Havila Resort, Sagana', desc: 'Every 2026 price at Havila Resort: rooms, camping and activities, for residents and non-residents.',
   body: `<section class="head w-tana"><div class="wrap">
-    <h1 class="painted"><span class="flourish">Our prices,</span>on one board</h1><p class="lead">Rooms, camping and activities. A few activities are priced on the day, so those say “Ask us”.</p><div class="actions">${resToggle}</div>
+    <h1><span class="flourish">Our prices,</span>on one board</h1><p class="lead">Rooms, camping and activities. A few activities are priced on the day, so those say “Ask us”.</p><div class="actions">${resToggle}</div>
   </div></section>
   <section class="sec w-marigold">${edge("#FFB703")}<div class="wrap boards boards-wide">
     <div class="board">${rateTable('standard')}</div><div class="board">${rateTable('executive')}</div><div class="board">${campTable}</div>
@@ -335,17 +335,17 @@ const faqs = [
 const visit = () => ({
   path: '/visit', title: 'Directions and contact | Havila Resort, Sagana', desc: 'Find Havila Resort right off the A2 at Sagana, about two hours from Nairobi. Directions, contact details, policies and answers.',
   body: `<section class="head w-sky"><div class="wrap head-grid">
-    <div class="t"><h1 class="painted"><span class="flourish">Up the A2.</span>Look for the falls.</h1><p class="lead">${contact.address}.</p><div class="actions"><a class="btn" href="${contact.maps}" rel="noopener">Open in Google Maps</a></div></div>
-    <div class="m">${photo('lodge', { sizes: '(max-width:820px) 92vw, 40vw', cls: 'frame tilt-r', eager: true, alt: 'The Havila Resort lodge and sign, which you will see as you arrive' })}</div>
+    <div class="t"><h1><span class="flourish">Up the A2.</span>Look for the falls.</h1><p class="lead">${contact.address}.</p><div class="actions"><a class="btn" href="${contact.maps}" rel="noopener">Open in Google Maps</a></div></div>
+    <div class="m">${photo('lodge', { sizes: '(max-width:820px) 92vw, 40vw', cls: '', eager: true, alt: 'The Havila Resort lodge and sign, which you will see as you arrive' })}</div>
   </div></section>
   <section class="sec w-lime">${edge('#FFF8E1')}<div class="wrap split">
-    <div class="t"><h2 class="painted"><span class="flourish">Talk to</span>a human</h2>
+    <div class="t"><h2><span class="flourish">Talk to</span>a human</h2>
     <ul class="lead"><li><a href="tel:${contact.phone}">${contact.phoneDisplay}</a></li><li><a href="${waFree('Hello Havila Resort, I have a question.')}" rel="noopener">WhatsApp us</a></li><li><a href="mailto:${contact.email}">${contact.email}</a></li></ul>
     <p style="margin-top:1em">The front desk is open 24 hours.</p></div>
     <div class="m" style="padding-right:12px">${routeMap}</div>
   </div></section>
   <section class="sec w-leaf">${edge('#2FB457')}<div class="wrap">
-    <h2 class="painted"><span class="flourish">Things people</span>ask us</h2>
+    <h2><span class="flourish">Things people</span>ask us</h2>
     ${faqs.map(([q, a]) => `<details class="qa"><summary>${q}</summary><p>${a}</p></details>`).join('')}
   </div></section>`,
 });
