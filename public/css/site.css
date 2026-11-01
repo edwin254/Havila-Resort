@@ -532,3 +532,20 @@ html:not(.motion) .offer-pic{position:absolute;inset:0;transform:none!important}
 .sentence{font-size:clamp(1.9rem,1.3rem + 2.2vw,3.5rem)}
 @media (max-width:820px){.sound{bottom:auto;top:76px}}
 
+/* ---- Critique fixes ---- */
+/* Offers stay in the tab order; only the words are the link */
+.motion .offer{visibility:visible;opacity:0;transition:opacity .3s}
+.motion .offer.on{opacity:1}
+.motion .offer:focus-visible{outline-offset:-10px}
+.offer-n{position:absolute;right:var(--gutter);top:clamp(70px,10svh,90px);font:400 clamp(1.3rem,1rem + 1vw,2rem)/1 var(--display)}
+.motion .offer.on .offer-word,.motion .offer.on .offer-line{pointer-events:auto}
+.motion .offer.on{pointer-events:none}
+.offer-line i{font-style:normal;margin-left:.3em;display:inline-block;transition:transform .4s var(--ease)}
+.offer:hover .offer-line i{transform:translateX(.4em)}
+.in-offers .sound{display:none}
+.skip-reel{position:absolute;right:var(--gutter);top:clamp(70px,10svh,90px);z-index:5;font-weight:600;font-size:.9rem;min-height:44px;display:inline-flex;align-items:center;color:var(--bone)}
+.in-offers .skip-reel{top:clamp(100px,14svh,130px)}
+html:not(.motion) .skip-reel,html:not(.motion) .scroll-cue,html:not(.motion) .offer-n{display:none}
+@media (min-width:821px){.skip-reel{top:auto;bottom:30px;right:calc(var(--gutter) + 150px)}.in-offers .skip-reel{top:auto;right:var(--gutter)}}
+.hero-photo .sample-tag{top:66px;right:var(--gutter)}
+.offer-pic .sample-tag{top:auto;bottom:0;right:0}
