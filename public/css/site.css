@@ -419,3 +419,17 @@ html:not(.motion) .strip{overflow-x:auto;transform:none}
   .motion .pile-card .pic img{aspect-ratio:auto;height:100%}
 }
 
+/* Warmer welcome: lighter hero shade, bright pile, sunset close */
+.hero-shade{background:linear-gradient(180deg,rgba(13,19,18,.35),transparent 28%,transparent 52%,rgba(13,19,18,.72))}
+.karibu{color:var(--glacier)}
+.pile{background:var(--bone);--fg:var(--ink)}
+.pile-card{box-shadow:0 22px 46px rgba(13,19,18,.28)}
+.motion .pile-card{box-shadow:0 22px 46px rgba(13,19,18,.28)}
+.close-photo{overflow:hidden}
+.close-pic{position:absolute!important;inset:0;transform:none!important}
+.close-photo::after{content:"";position:absolute;inset:0;background:rgba(13,19,18,.38);pointer-events:none}
+.close-photo .wrap{z-index:3}
+.close-photo{--accent:var(--bone);padding-block:clamp(120px,18vw,260px)}
+main .close-pic{transform:none!important}
+.head .pic img{aspect-ratio:4/3}
+
