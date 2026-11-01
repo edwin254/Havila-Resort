@@ -578,6 +578,13 @@ function runMotion() {
     tl.to({}, { duration: .5 });
   }
 
+  // Film strips race in opposite directions
+  document.querySelectorAll('.strip-track').forEach((t) => {
+    const dir = Number(t.dataset.dir);
+    const travel = () => Math.max(120, t.scrollWidth - innerWidth) ;
+    gsap.fromTo(t, { x: () => (dir < 0 ? 0 : -travel()) }, { x: () => (dir < 0 ? -travel() : 0), ease: 'none', scrollTrigger: { trigger: t.parentElement, start: 'top bottom', end: 'bottom top', scrub: .3, invalidateOnRefresh: true } });
+  });
+
   // Closing line swells as it arrives
   document.querySelectorAll('.close h2').forEach((h) => {
     gsap.fromTo(h, { scale: .72 }, { scale: 1, ease: 'none', scrollTrigger: { trigger: h, start: 'top bottom', end: 'center center', scrub: .4 } });
