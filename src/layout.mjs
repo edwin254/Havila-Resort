@@ -19,7 +19,7 @@ export function photo(name, { sizes = '100vw', cls = '', eager = false, alt } = 
 
 export const waFree = (text) => `https://wa.me/${contact.whatsapp}?text=${encodeURIComponent(text)}`;
 
-const logo = `<a class="brand" href="/" aria-label="Havila Resort, home"><span class="brand-word">Havila</span><span class="brand-sub">Resort</span></a>`;
+const logo = `<a class="brand" href="/" aria-label="Havila Resort, home">Havila</a>`;
 
 export function layout(page, site) {
   const preview = process.env.PUBLIC !== '1';
