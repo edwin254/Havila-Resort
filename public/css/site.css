@@ -408,3 +408,14 @@ html:not(.motion) .strip{overflow-x:auto;transform:none}
   .band-copy h2{font-size:clamp(3rem,15vw,5rem)}
 }
 
+/* Headlines over photos stay bone; the phone pile fills the screen */
+.band-copy,.fall-copy{--accent:var(--bone)}
+.band-pic::after{background:linear-gradient(200deg,transparent 25%,rgba(13,19,18,.86))}
+.fall-shade{background:linear-gradient(180deg,rgba(13,19,18,.15) 25%,rgba(13,19,18,.9))}
+.fall .sample-tag{left:16px}
+@media (max-width:820px){
+  .motion .pile-card{width:86vw;margin-left:-43vw;margin-top:calc(min(107.5vw,72svh) / -2)}
+  .motion .pile-card .pic{height:min(107.5vw,72svh)}
+  .motion .pile-card .pic img{aspect-ratio:auto;height:100%}
+}
+
