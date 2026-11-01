@@ -585,6 +585,11 @@ function runMotion() {
     gsap.fromTo(t, { x: () => (dir < 0 ? 0 : -travel()) }, { x: () => (dir < 0 ? -travel() : 0), ease: 'none', scrollTrigger: { trigger: t.parentElement, start: 'top bottom', end: 'bottom top', scrub: .3, invalidateOnRefresh: true } });
   });
 
+  // Wide photo bands crash in
+  document.querySelectorAll('.band-copy').forEach((c) => {
+    gsap.from(c.querySelector('.btn'), { scale: 0, rotation: -12, duration: .7, ease: 'back.out(2.4)', scrollTrigger: { trigger: c, start: 'top 85%', once: true } });
+  });
+
   // Closing line swells as it arrives
   document.querySelectorAll('.close h2').forEach((h) => {
     gsap.fromTo(h, { scale: .72 }, { scale: 1, ease: 'none', scrollTrigger: { trigger: h, start: 'top bottom', end: 'center center', scrub: .4 } });
