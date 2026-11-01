@@ -14,8 +14,26 @@ $('arrive').min = today;
 $('leave').min = today;
 
 // Build the activity list and stay options from the rate data
+const PICS = { rafting: 'raft-team', 'mini-raft': 'raft-yellow', kayak: 'kayak', boat: 'river', fishing: 'river', quad: 'quad', cycling: 'bridge', archery: 'archery', hiking: 'sunset', nature: 'river', yoga: 'sunset-2', pottery: 'lodge', facilitator: 'dining-hall' };
 $('activity-picks').innerHTML = D.activities.map((a) => `
-  <label class="pick"><input type="checkbox" name="activity" value="${a.id}"><span class="box">${a.name}<em data-act-price="${a.id}"></em></span></label>`).join('');
+  <label class="pick"><input type="checkbox" name="activity" value="${a.id}"><span class="box"><img src="/img/${PICS[a.id]}-640.webp" alt="" loading="lazy" decoding="async"><span class="pick-name">${a.name}</span><em data-act-price="${a.id}"></em></span></label>`).join('');
+
+// Plus and minus around the guest counts
+document.querySelectorAll('.field.num input').forEach((input) => {
+  const make = (txt, delta, label) => {
+    const b = document.createElement('button');
+    b.type = 'button'; b.className = 'step-btn'; b.textContent = txt; b.setAttribute('aria-label', label);
+    b.addEventListener('click', () => {
+      const min = Number(input.min), max = Number(input.max);
+      input.value = Math.min(max, Math.max(min, Math.round(Number(input.value) || 0) + delta));
+      input.dispatchEvent(new Event('input', { bubbles: true }));
+    });
+    return b;
+  };
+  const noun = input.id === 'adults' ? 'adult' : 'child';
+  input.before(make('−', -1, `One fewer ${noun}`));
+  input.after(make('+', 1, `One more ${noun}`));
+});
 
 const saved = window.havilaDraft.read();
 const FIELDS = ['arrive', 'leave', 'adults', 'kids', 'stay', 'meal', 'name', 'phone', 'notes'];
