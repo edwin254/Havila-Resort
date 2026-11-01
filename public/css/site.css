@@ -379,3 +379,12 @@ main section:not(.hero):not(.fall){overflow-x:clip}
 .motion .pile-stage{position:sticky;top:0;height:100svh;display:block;padding:0;overflow:hidden}
 .motion .pile-card{position:absolute;left:50%;top:50%;width:min(88vw,calc(78svh * 1.5),1180px);margin-left:calc(min(88vw,calc(78svh * 1.5),1180px) / -2);margin-top:calc(min(88vw,calc(78svh * 1.5),1180px) / -3);will-change:transform,filter;box-shadow:0 26px 60px rgba(0,0,0,.55)}
 
+/* Film strips */
+.strip-sec{padding-bottom:clamp(50px,7vw,110px)}
+.strip{margin-top:clamp(40px,6vw,90px);display:grid;gap:clamp(14px,2vw,28px);transform:rotate(-2.5deg) scale(1.04);overflow:visible}
+.strip-track{display:flex;gap:clamp(14px,2vw,28px);width:max-content;will-change:transform;padding-inline:var(--gutter)}
+.strip .pic{width:clamp(250px,38vw,640px);flex:none;transform:rotate(2deg)}
+.strip .pic:nth-child(even){transform:rotate(-2deg)}
+.strip .pic img{aspect-ratio:4/3}
+html:not(.motion) .strip{overflow-x:auto;transform:none}
+
