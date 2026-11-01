@@ -553,3 +553,10 @@ html:not(.motion) .skip-reel,html:not(.motion) .scroll-cue,html:not(.motion) .of
 @media (max-width:820px){.menu-btn{display:none}.sound{top:66px;right:auto;left:var(--gutter)}.skip-reel{top:66px}}
 .karibu{display:block}
 .hero-tag{max-width:22em}
+/* Less formula: one-colour headlines, hard-edged slanted photos, varied angles */
+.flourish{color:inherit}
+.pic,.tile,.pile-card{border-radius:0}
+.pile-cap,.flash,.tile-name{border-radius:0;margin:0}
+.pile-cap{background:var(--ink);color:var(--bone)}
+.flash{background:var(--ink);color:var(--glacier)}
+.flash small{color:var(--bone)}
