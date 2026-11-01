@@ -549,3 +549,7 @@ html:not(.motion) .skip-reel,html:not(.motion) .scroll-cue,html:not(.motion) .of
 @media (min-width:821px){.skip-reel{top:auto;bottom:30px;right:calc(var(--gutter) + 150px)}.in-offers .skip-reel{top:auto;right:var(--gutter)}}
 .hero-photo .sample-tag{top:66px;right:var(--gutter)}
 .offer-pic .sample-tag{top:auto;bottom:0;right:0}
+/* Phones: the dock holds Menu */
+@media (max-width:820px){.menu-btn{display:none}.sound{top:66px;right:auto;left:var(--gutter)}.skip-reel{top:66px}}
+.karibu{display:block}
+.hero-tag{max-width:22em}
