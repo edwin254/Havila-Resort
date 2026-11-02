@@ -579,3 +579,20 @@ html:not(.motion) .skip-reel,html:not(.motion) .scroll-cue,html:not(.motion) .of
 .reel-done .skip-reel,.reel-done .hero-photo .sample-tag{display:none}
 @media (max-width:820px){.skip-reel,.in-offers .skip-reel{top:86px}}
 @media (min-width:821px){.offer-n{top:96px}}
+
+/* Guest words */
+.voices{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:clamp(28px,4vw,56px);margin-top:clamp(28px,4vw,56px)}
+.voice{margin:0;border-top:2px solid var(--accent);padding-top:1em}
+.voice blockquote{margin:0;font-size:clamp(1.1rem,1.05rem + .35vw,1.35rem);line-height:1.42;font-weight:600}
+.voice figcaption{margin-top:1em;color:var(--muted);font-size:.95rem}
+.pack-price{font:400 clamp(1.8rem,1.4rem + 1.2vw,2.6rem)/1.1 var(--display);margin:0 0 .4em}
+.pack-price small{font:600 .95rem/1 var(--body,inherit)}
+.board .bullets{margin:1em 0 1.4em;padding:0;list-style:none}
+/* Barizi menu */
+.menu{margin-top:clamp(24px,3vw,44px)}
+details.qa.menu-course summary{font:400 clamp(1.5rem,1.2rem + 1.1vw,2.3rem)/1.1 var(--display);text-transform:uppercase;letter-spacing:.015em}
+.menu-groups{columns:3 300px;column-gap:clamp(24px,3vw,44px);padding:.5em 0 2em}
+.menu-group{break-inside:avoid;padding-bottom:1.6em}
+.menu-group h3{font-size:1.3rem;color:var(--accent)}
+.menu-group .dots{border-color:rgba(237,232,220,.25)}
+.menu-group .board-row small{max-width:34ch}

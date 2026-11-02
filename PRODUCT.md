@@ -28,18 +28,19 @@ Static site with no backend. Enquiries are composed in the browser and sent thro
 - Name is spelled **Havila** (never "Havilla").
 - Rooms: Standard and Executive deluxe rooms, each individually themed (modern, exotic, African), facing Kirengete Falls and Gaturi Hills. Camping grounds.
 - Dining: Barizi Restaurant, on a hilltop, local and international cuisine, some produce from the garden.
-- Activities: rafting, mini rafting, kayaking, boat rides, fishing, quad biking, cycling, archery, hiking, trekking, nature trail, swaying bridge, yoga, pottery, team building.
+- Activities: rafting, mini rafting, kayaking, boat rides, fishing, quad biking, cycling, archery, hiking, skywalk, trekking, nature trail, swaying bridge, yoga, pottery, apiculture and aquaculture training, team building.
+- Tagline: The Gift of Serenity. The name comes from the biblical Garden of Eden.
 - Events: event grounds and conferencing for weddings, sporting and corporate events.
 - Check-in after 15:00, check-out before 10:00. No pets.
 - Rates come from a third-party operator's 2026 listing (African Spice Safaris), so they are unverified and must be confirmed by the owner.
-- Undecided or unknown: conference capacities, which phone number is current, pool (no evidence, do not claim one), acreage (official site says ten acres, another source says 40).
+- Undecided or unknown: conference capacities, pool (no evidence, do not claim one), acreage (the site uses the official ten acres, another source says 40). The official site's phone number, +254 715 255007, is used; WhatsApp on it is unconfirmed.
 
 ## Brand Commitments
 Existing name and domain, havilaresort.com. The logo has not been supplied, so a wordmark stands in.
 
 ## Evidence on Hand
 - Google rating about 4.3 from about 939 reviews (read October 2026, to be re-checked).
-- No real photography, logo or verbatim guest reviews are on hand. Do not fabricate testimonials or present stock imagery as the real resort.
+- Three guest quotes come from the resort's own website. No other verbatim reviews, and no original photography or logo files, are on hand. Do not fabricate testimonials or present stock imagery as the real resort.
 - Contact details conflict: +254 709 255006 (Google), +254 715 255007 (Facebook), +254 719 255005 (booking listing); havilaresort@gmail.com (Facebook). The address is right off A2 Road, Rukanga, Riandira, Sagana.
 
 ## Product Principles

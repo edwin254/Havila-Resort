@@ -1,4 +1,4 @@
-import { contact, rooms, meals, camping, ownTent, activities, photos } from '../data.mjs';
+import { contact, rooms, meals, camping, ownTent, activities, packages, menu, photos } from '../data.mjs';
 import { photo, waFree } from '../layout.mjs';
 import { routeMap } from './scene.mjs';
 
@@ -20,9 +20,16 @@ const offers = [
   ['wedding', 'Gather', 'Weddings, team building, conferences', '/events/'],
 ];
 
+// Published on the resort's own website.
+const voices = [
+  ['Rozie Bebikitah', 'I was there over the weekend had the best time of my life the Food was 10/10 highly recommended the service was great thanks to Priscilla and Elijah the manager looking forward to coming back'],
+  ['Sichangi A. Nyongesa', 'Serene resort with good nature walks and waterfall, indigenous trees so good for relaxation and meditation.'],
+  ['Stephen Kamau Marley', 'Loved the experience would recommend for anyone seeking a good time'],
+];
+
 const home = () => ({
   path: '/',
-  title: 'Havila Resort, Sagana | Rafting, camping and rooms on the River Tana',
+  title: 'Havila Resort, Sagana | The Gift of Serenity on the River Tana',
   desc: 'A waterfall, two islands and white water on the River Tana, about two hours from Nairobi. Stay, camp, raft, ride quads and eat on the hill at Barizi.',
   bodyClass: 'page-home',
   body: `<!--
@@ -40,7 +47,7 @@ FORM: Cinematic scroll film with the river and raft as the through-line.
     <div class="hero-copy">
       <h1 class="hero-word" aria-label="Havila">${[...'HAVILA'].map((c) => `<span class="ltr" aria-hidden="true"><span>${c}</span></span>`).join('')}</h1>
       <div class="hero-foot">
-        <p class="hero-tag"><span class="karibu">Karibu.</span> A waterfall, white water and a bed, two hours from Nairobi.</p>
+        <p class="hero-tag"><span class="karibu">Karibu.</span> The Gift of Serenity: a waterfall, white water and a bed, two hours from Nairobi.</p>
         <a class="btn" href="/plan/">Plan your stay</a>
         <span class="scroll-cue" aria-hidden="true">Scroll into the falls</span>
       </div>
@@ -59,7 +66,15 @@ FORM: Cinematic scroll film with the river and raft as the through-line.
 </section>
 
 <div class="river-page">
-<section class="sec w-tana wall" id="wall">
+<section class="sec w-lime story" id="wall">
+  <div class="wrap">
+      <h2 data-river="94,96.5"><span class="flourish">The gift of</span>serenity</h2>
+      <p class="lead">Havila takes its name from the biblical Garden of Eden, a place of beauty and abundance. Ten acres of green on the slopes of Central Kenya, with the Tana roaring through the middle.</p>
+      <p>Listen to the waterfall, explore two islands, or do nothing at all under the trees while the birds sing.</p>
+  </div>
+</section>
+
+<section class="sec w-tana wall">
   <div class="wrap">
     <h2 data-river="94,96.5"><span class="flourish">Pick your</span>way to get soaked</h2>
     <div class="adventure-wall" data-river="50,98">
@@ -69,7 +84,7 @@ FORM: Cinematic scroll film with the river and raft as the through-line.
       <a class="tile t4" href="/adventures/#kayak"><span class="tile-name">Kayaking</span>${photo('kayak', { sizes: '(max-width:820px) 46vw, 32vw' })}</a>
       <a class="tile t5" href="/adventures/#archery"><span class="tile-name">Archery</span>${photo('archery', { sizes: '(max-width:820px) 46vw, 32vw' })}<span class="flash">${price(1000, 10)}<small>1 hour</small></span></a>
     </div>
-    <div class="actions" data-river="88,96.5"><a class="btn" href="/adventures/">All 13 activities and prices</a></div>
+    <div class="actions" data-river="88,96.5"><a class="btn" href="/adventures/">All ${activities.length} activities and prices</a></div>
   </div>
 </section>
 
@@ -120,6 +135,13 @@ FORM: Cinematic scroll film with the river and raft as the through-line.
     ${photo('wedding', { sizes: '92vw', cls: 'band-pic' })}
     <div class="band-copy"><h2><span class="flourish">Bring the whole</span>office. Or the wedding.</h2><a class="btn" href="/events/">Events at Havila</a></div>
     ${photo('wedding-flowers', { sizes: '(max-width:820px) 50vw, 30vw', cls: 'band-small' })}
+  </div>
+</section>
+
+<section class="sec w-tana voices-sec">
+  <div class="wrap">
+    <h2 data-river="96,98"><span class="flourish">What guests</span>tell us</h2>
+    <div class="voices">${voices.map(([who, said]) => `<figure class="voice"><blockquote>“${said}”</blockquote><figcaption>${who}</figcaption></figure>`).join('')}</div>
   </div>
 </section>
 
@@ -188,7 +210,7 @@ const featured = [
 ];
 
 const adventures = () => ({
-  path: '/adventures', title: 'Rafting, quad biking and more | Havila Resort, Sagana', desc: 'White water rafting, mini rafting, kayaking, quad biking, archery, hiking, boat rides and more on the River Tana, with current prices.',
+  path: '/adventures', title: 'Rafting, quad biking and more | Havila Resort, Sagana', desc: 'White water rafting, kayaking, quad biking, archery, hiking and the skywalk, boat rides, beekeeping and fish farming training on the River Tana, with current prices.',
   body: `<section class="head w-sky"><div class="wrap head-grid">
     <div class="t"><h1><span class="flourish">Come home</span>dirty</h1><p class="lead">River, mud, dust and a target with your name on it. Do one, or do the whole lot before lunch.</p>
     <div class="actions">${resToggle}</div></div>
@@ -244,14 +266,20 @@ const campingPage = () => ({
 });
 
 const barizi = () => ({
-  path: '/barizi', title: 'Barizi Restaurant on the hill | Havila Resort, Sagana', desc: 'Barizi Restaurant sits on a hill at Havila Resort, facing Mt. Kenya, the Aberdares and the Gaturi Hills. Local and international food, some from the garden.',
+  path: '/barizi', title: 'Barizi Restaurant on the hill | Havila Resort, Sagana', desc: 'Barizi Restaurant sits on a hill at Havila Resort, facing Mt. Kenya, the Aberdares and the Gaturi Hills. Local and international food, some from the garden, with the full menu and prices.',
   body: `<section class="head w-tana calm"><div class="wrap head-grid">
-    <div class="t"><h1><span class="flourish">Barizi.</span>Pull up a chair.</h1><p class="lead">The hill has the best seats in Sagana: Mt. Kenya, the Aberdares, the Gaturi Hills and a plate of something hot.</p></div>
+    <div class="t"><h1><span class="flourish">Barizi.</span>Pull up a chair.</h1><p class="lead">The hill has the best seats in Sagana: Mt. Kenya, the Aberdares, the Gaturi Hills and a plate of something hot.</p><div class="actions"><a class="btn" href="#menu">See the menu</a></div></div>
     <div class="m">${photo('plate', { sizes: '(max-width:820px) 92vw, 40vw', eager: true })}</div>
   </div></section>
   <section class="sec w-lime calm">${edge('#FFF8E1')}<div class="wrap split">
     <div class="t"><h2><span class="flourish">Straight from</span>the garden</h2><p class="lead">Local and international, some of it picked from the garden that day.</p></div>
     <div class="m" style="padding-right:18px">${photo('flatlay', { sizes: '(max-width:820px) 90vw, 50vw' })}</div>
+  </div></section>
+  <section class="sec w-tana calm" id="menu"><div class="wrap">
+    <h2><span class="flourish">What’s on</span>the menu</h2>
+    <div class="menu">${menu.map((c) => `<details class="qa menu-course"><summary>${c.name}</summary><div class="menu-groups">${c.groups.map((g) => `<div class="menu-group"><h3>${g.name}</h3>${g.items.map(([n, amt, about]) => `<div class="board-row"><span>${n}${about ? `<small>${about}</small>` : ''}</span><span class="dots"></span><span class="amt">${amt.toLocaleString('en-KE')}</span></div>`).join('')}</div>`).join('')}</div></details>`).join('')}</div>
+    <p class="board-note">Prices in Kenya shillings. Tell us about any allergies when you order.</p>
+    <div class="actions"><a class="btn" href="${waFree('Hello Barizi, I would like to book a table.')}" rel="noopener">Book a table on WhatsApp</a></div>
   </div></section>
   <section class="sec w-marigold calm">${edge('#FFB703')}<div class="wrap split flip">
     <div class="t"><h2><span class="flourish">Not staying?</span>Come anyway.</h2><p class="lead">Stopping on the A2 for a meal? Come up the hill. Bringing a group? Tell us ahead of time so the kitchen’s ready.</p><div class="actions"><a class="btn" href="${waFree('Hello Barizi, I would like to book a table.')}" rel="noopener">Book a table on WhatsApp</a></div></div>
@@ -265,10 +293,15 @@ const events = () => ({
     <div class="t"><h1><span class="flourish">Big group?</span>Good.</h1><p class="lead">Offices, weddings, sports days and reunions. We have the grounds, the river and a kitchen that doesn’t panic.</p></div>
     <div class="m">${photo('wedding-blue', { sizes: '(max-width:820px) 92vw, 40vw', eager: true })}</div>
   </div></section>
+  <section class="sec w-tana"><div class="wrap">
+    <h2><span class="flourish">Our day</span>packages</h2>
+    <div class="actions">${resToggle}</div>
+    <div class="boards" style="margin-top:2em">${packages.map((p) => `<article class="board" id="${p.id}"><h3>${p.name}</h3><p class="pack-price">${price(p.res, p.non)} <small>per person</small></p><p>${p.text}</p><ul class="bullets">${p.includes.map((i) => `<li>${i}</li>`).join('')}</ul><a class="btn btn-small" href="${waFree(`Hello Havila Resort, I would like a quote for the ${p.name} package.`)}" rel="noopener">Ask about ${p.name.toLowerCase()}</a></article>`).join('')}</div>
+  </div></section>
   <section class="sec w-marigold">${edge('#FFB703')}<div class="wrap">
     <h2><span class="flourish">Team building</span>your team will actually attend</h2>
     <div class="boards">
-      <div><p class="lead">Conference in the morning. River in the afternoon. Groups of 20 or more.</p></div>
+      <div><p class="lead">Conference in the morning. River in the afternoon. Groups of 20 or more.</p><p>Want something your team hasn’t done before? Ask about our beekeeping and fish farming training.</p></div>
       <form class="board" id="budget" aria-label="Team-building budget estimator">
         <h3>Your group’s budget</h3>
         <div class="field"><label for="b-people">How many people?</label><input id="b-people" type="number" min="20" max="500" step="1" value="30" inputmode="numeric"><p class="err" id="b-err" hidden></p></div>
@@ -312,12 +345,13 @@ const events = () => ({
 });
 
 const rates = () => ({
-  path: '/rates', title: 'Rates 2026 | Havila Resort, Sagana', desc: 'Every 2026 price at Havila Resort: rooms, camping and activities, for residents and non-residents.',
+  path: '/rates', title: 'Rates 2026 | Havila Resort, Sagana', desc: 'Every 2026 price at Havila Resort: rooms, camping, packages and activities, for residents and non-residents.',
   body: `<section class="head w-tana"><div class="wrap">
-    <h1><span class="flourish">Our prices,</span>on one board</h1><p class="lead">Rooms, camping and activities. A few activities are priced on the day, so those say “Ask us”.</p><div class="actions">${resToggle}</div>
+    <h1><span class="flourish">Our prices,</span>on one board</h1><p class="lead">Rooms, camping, packages and activities. A few activities are priced on the day, so those say “Ask us”.</p><div class="actions">${resToggle}</div>
   </div></section>
   <section class="sec w-marigold">${edge("#FFB703")}<div class="wrap boards boards-wide">
     <div class="board">${rateTable('standard')}</div><div class="board">${rateTable('executive')}</div><div class="board">${campTable}</div>
+    <div class="board"><h2 class="as-h3">Day packages</h2>${packages.map((p) => `<div class="board-row"><span>${p.name}<small>${p.includes.join(', ')}</small></span><span class="dots"></span><span class="amt">${price(p.res, p.non)}</span></div>`).join('')}<p class="board-note">Per person.</p></div>
     <div class="board"><h2 class="as-h3">Activities</h2>${activities.map((a) => `<div class="board-row"><span>${a.name}${a.minNote ? `<small>${a.minNote}</small>` : ''}</span><span class="dots"></span><span class="amt">${price(a.res, a.non)}</span></div>`).join('')}</div>
   </div><div class="wrap"><p style="margin-top:2.4em;font-weight:600">2026 rates. Your final price is confirmed when you book.</p><div class="actions"><a class="btn" href="/plan/">Plan your stay</a></div></div></section>`,
 });

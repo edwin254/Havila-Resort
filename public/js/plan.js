@@ -14,7 +14,7 @@ $('arrive').min = today;
 $('leave').min = today;
 
 // Build the activity list and stay options from the rate data
-const PICS = { rafting: 'raft-team', 'mini-raft': 'raft-yellow', kayak: 'kayak', boat: 'river', fishing: 'river', quad: 'quad', cycling: 'bridge', archery: 'archery', hiking: 'sunset', nature: 'river', yoga: 'sunset-2', pottery: 'lodge', facilitator: 'dining-hall' };
+const PICS = { 'hike-package': 'bridge', apiculture: 'lodge-hills', aquaculture: 'river', rafting: 'raft-team', 'mini-raft': 'raft-yellow', kayak: 'kayak', boat: 'river', fishing: 'river', quad: 'quad', cycling: 'bridge', archery: 'archery', hiking: 'sunset', nature: 'river', yoga: 'sunset-2', pottery: 'lodge', facilitator: 'dining-hall' };
 $('activity-picks').innerHTML = D.activities.map((a) => `
   <label class="pick"><input type="checkbox" name="activity" value="${a.id}"><span class="box"><img src="/img/${PICS[a.id]}-640.webp" alt="" loading="lazy" decoding="async"><span class="pick-name">${a.name}</span><em data-act-price="${a.id}"></em></span></label>`).join('');
 

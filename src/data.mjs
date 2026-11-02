@@ -1,8 +1,8 @@
 // Single source of truth for every fact on the site. Change a value here and rebuild.
 export const contact = {
-  phoneDisplay: '+254 709 255 006',
-  phone: '+254709255006',
-  whatsapp: '254709255006',
+  phoneDisplay: '+254 715 255 007',
+  phone: '+254715255007',
+  whatsapp: '254715255007',
   email: 'havilaresort@gmail.com',
   address: 'Right off A2 Road, Rukanga, Riandira, Sagana, Kirinyaga County',
   maps: 'https://www.google.com/maps/search/?api=1&query=Havila+Resort+Sagana+Kenya',
@@ -43,11 +43,76 @@ export const activities = [
   { id: 'quad', name: 'Quad biking', group: 'wheels', detail: 'Dust, mud and red earth', res: null, non: null },
   { id: 'cycling', name: 'Cycling', group: 'wheels', detail: 'Minimum 30 minutes', res: 500, non: 5, unit: 'per person' },
   { id: 'archery', name: 'Archery', group: 'land', detail: '1 hour on the range', res: 1000, non: 10, unit: 'per person' },
-  { id: 'hiking', name: 'Hiking', group: 'land', detail: 'Trails and hill views', min: 4, minNote: 'Minimum 4 guests', res: 1000, non: 10, unit: 'per person' },
+  { id: 'hiking', name: 'Hiking and skywalk', group: 'land', detail: 'Scenic trails and the skywalk above the Tana', min: 4, minNote: 'Minimum 4 guests', res: 1000, non: 10, unit: 'per person' },
   { id: 'nature', name: 'Nature trail', group: 'land', detail: 'Birds, trees and the swaying bridge', res: null, non: null },
   { id: 'yoga', name: 'Yoga', group: 'slow', detail: 'Slow morning, river sounds', res: null, non: null },
   { id: 'pottery', name: 'Pottery', group: 'slow', detail: 'Get your hands dirty differently', res: null, non: null },
+  { id: 'hike-package', name: '6-hour hiking package', group: 'land', detail: 'Kirinyaga to Murang’a County over the Skywalk Bridge and the Tana, through Havila Orchard, Kiambicho Forest and the Gaturi gullies. Water and a light refreshment included', res: 2500, non: 25, unit: 'per person' },
+  { id: 'apiculture', name: 'Apiculture training', group: 'slow', detail: 'Learn beekeeping and honey production with expert trainers', res: null, non: null },
+  { id: 'aquaculture', name: 'Aquaculture training', group: 'slow', detail: 'Hands-on training in sustainable fish farming', res: null, non: null },
   { id: 'facilitator', name: 'Team-building facilitator', group: 'land', detail: 'Led games and challenges', min: 20, minNote: 'Minimum 20 guests', res: 600, non: 10, unit: 'per person' },
+];
+
+export const packages = [
+  { id: 'team', name: 'Team building', res: 3250, non: 33, text: 'Built around your team, so the good work carries on long after you’re back at the office.', includes: ['Lunch', 'Morning and afternoon tea with snacks', 'Use of the grounds', 'Team-building facilitator', 'Havila canopy walk', 'Free botanical tour'] },
+  { id: 'conference', name: 'Conference', res: 3000, non: 30, text: 'A productive day of meetings, with the river and the trees just outside.', includes: ['Lunch', 'Morning and afternoon tea with snacks', 'Use of the meeting venue', 'Free botanical tour'] },
+];
+
+// Barizi menu, from the resort's food menu PDF. Prices in KES. A third value is the item's description.
+export const menu = [
+  { name: 'Breakfast', groups: [
+    { name: 'Set breakfasts', items: [
+      ['National Breakfast', 750, 'Eggs, sausages, gizzards, liver or wings, sweet potatoes, toast or mandazi, fruit cuts, braised vegetables. Tea, coffee or chocolate'],
+      ['European Breakfast', 1200, 'Sausages, eggs, pancake, French toast, fruit cuts, braised vegetables. Tea, coffee or chocolate'],
+      ['Havila Breakfast', 750, 'Sweet potatoes, nduma, cassava, mandazi or toast. Tea, coffee, chocolate or ndubia (sugarless tea)'],
+    ] },
+    { name: 'Make your own combo', items: [
+      ['Arrowroots (nduma)', 150], ['Sweet potato', 150], ['Bacon', 350], ['Baked beans', 200], ['French toast (toast mayai)', 200],
+      ['Omelette (bacon, sausage, Spanish or vegetable)', 200], ['Boiled eggs (2)', 200], ['Fried eggs (2)', 200], ['Scrambled eggs (2)', 200],
+      ['Potato cubes', 200], ['Sausages (2)', 200], ['Samosa (2)', 200], ['Maandazi', 100], ['Naan bread', 200], ['Toasted bread', 150], ['Pancakes (3)', 200], ['Spring rolls', 200],
+    ] },
+    { name: 'Extras', items: [['Toast', 200], ['Eggs', 200], ['Bacon', 350], ['Sausages', 200]] },
+    { name: 'Cereals', items: [['Cornflakes', 300], ['Weetabix', 300], ['Rice crisps', 300], ['Cereal mix', 600]] },
+    { name: 'Soups', items: [['Chicken soup', 200], ['Beef soup', 200], ['Bone soup', 200]] },
+    { name: 'Pastries', items: [['Cup cakes', 100], ['Cookies', 50], ['Doughnuts', 100], ['Cake slice', 100]] },
+    { name: 'Hot drinks', items: [
+      ['Teapot, African tea', 150], ['Black tea', 150], ['Lemon tea', 150], ['White tea', 150], ['Masala tea', 150], ['Coffee, black pot', 150], ['Coffee latte', 150],
+      ['Dawa', 200], ['Fresh milk', 200], ['Havila uji', 150], ['Drinking chocolate pot, black', 150], ['Drinking chocolate pot, white', 200],
+    ] },
+  ] },
+  { name: 'Lunch and dinner', groups: [
+    { name: 'Starters', items: [['Carrot soup', 200], ['Bone soup', 200], ['Butternut soup', 200]] },
+    { name: 'Mains', items: [
+      ['Peas stew', 350], ['Beans stew', 350], ['Biriyani plain', 200], ['Githeri', 300], ['Black beans (njahi)', 350],
+      ['Matumbo and matoke', 400], ['Matumbo and ugali', 400], ['Mbaazi stew', 250], ['Ndengu stew', 350], ['Pilau beef', 500],
+    ] },
+    { name: 'Fish', items: [['Whole tilapia, deep-fried', 950], ['Whole tilapia, wet fry', 950]] },
+    { name: 'Beef', items: [['Havila stir fry beef, ½ kg', 800], ['Havila stir fry beef, 1 kg', 1500]] },
+    { name: 'Chicken', items: [['Capon, ½', 800], ['Capon, full', 1500], ['Havila Kienyeji Chicken', 1000], ['Full Kienyeji Chicken', 2000], ['Kienyeji Chicken, ½', 1000], ['Kuku Bahati', 3000]] },
+    { name: 'Mbuzi', items: [['Half Havila mbuzi', 9000], ['Whole Havila mbuzi', 18000], ['Havila mbuzi, ½ kg', 800], ['Nyama choma, 1 kg', 1600]] },
+    { name: 'Pork', items: [['Pork chops', 1100], ['Pork plate, ½', 800], ['Sweet and sour, 1 kg', 1400]] },
+    { name: 'Vegetables', items: [['Braised vegetables', 250], ['Kachumbari', 150], ['Mixed greens', 150], ['Cabbage', 100], ['Vegetable curry', 400]] },
+    { name: 'Accompaniments', items: [
+      ['Bhajia', 250], ['Ugali, white', 150], ['Ugali, brown', 150], ['White chapati', 70], ['Brown chapati', 70], ['Plain chips', 200], ['Masala chips', 250], ['Pousin chips', 250],
+      ['Mashed potatoes', 250], ['Roast potatoes', 250], ['Sauté potatoes', 250], ['Potato wedges', 250], ['Matoke', 250], ['Mukimo', 150], ['Rice', 150], ['Pilau plain', 200], ['Vegetable rice', 200],
+    ] },
+    { name: 'Salads', items: [['Coleslaw', 250], ['Garden salad', 400], ['Greek salad', 400]] },
+  ] },
+  { name: 'Burgers, bites and pizza', groups: [
+    { name: 'Burgers', items: [['Beef burger', 650], ['Grilled chicken burger', 650], ['Havila cheesy burger', 650]] },
+    { name: 'Bitings', items: [['Chicken gizzards', 450], ['Chicken wings', 450], ['Chicken nuggets', 450], ['Choma sausages (2)', 350], ['Samosa (2)', 200], ['Fish fingers', 550], ['Hot dog', 300], ['Mshikaki, chicken or beef', 200]] },
+    { name: 'Sandwiches', items: [['Bacon sandwich', 450], ['Beef sandwich', 400], ['Chicken sandwich', 400], ['Vegetable sandwich', 350]] },
+    { name: 'Pizza', items: [['Bacon pizza', 1200], ['Beef pizza', 1000], ['Chicken pizza', 1000], ['Margarita pizza', 1000]] },
+    { name: 'Platters', items: [['Havila Sizzler Platter', 3000], ['Havila Sizzler, half portion', 1500]] },
+  ] },
+  { name: 'Kids', groups: [
+    { name: 'Kids menu', items: [['Spaghetti Bolognaise', 750], ['Chicken wings', 450], ['Fish fingers', 550], ['Chicken lollipops', 500], ['Chicken nuggets', 450], ['Sausages', 200], ['Hot dogs', 300], ['Fries', 200]] },
+  ] },
+  { name: 'Desserts and sweets', groups: [
+    { name: 'Dessert', items: [['Fruit salad', 250], ['Cup cake', 100]] },
+    { name: 'Ice cream', items: [['Strawberry', 350], ['Vanilla', 350], ['Chocolate', 350], ['Blueberry', 400]] },
+    { name: 'Sweet gallery', items: [['Ice cream', 350], ['Honey, 1 kg', 1000], ['Milkshakes', 550], ['Smoothies', 550]] },
+  ] },
 ];
 
 export const photos = {

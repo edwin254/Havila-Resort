@@ -25,7 +25,7 @@ export function layout(page, site) {
   const preview = process.env.PUBLIC !== '1';
   const canonical = `${site}${page.path === '/' ? '/' : `${page.path}/`}`;
   const ld = {
-    '@context': 'https://schema.org', '@type': 'Resort', name: 'Havila Resort', url: site,
+    '@context': 'https://schema.org', '@type': 'Resort', name: 'Havila Resort', slogan: 'The Gift of Serenity', url: site,
     telephone: contact.phone, email: contact.email, image: `${site}/og.jpg`,
     address: { '@type': 'PostalAddress', streetAddress: 'Right off A2 Road, Rukanga, Riandira', addressLocality: 'Sagana', addressRegion: 'Kirinyaga', addressCountry: 'KE' },
     checkinTime: '15:00', checkoutTime: '10:00', petsAllowed: false, sameAs: [contact.facebook],
@@ -64,7 +64,7 @@ ${page.body}
     <div class="foot-inner">
     <div class="foot-sign">
       <p class="foot-word">Havila</p>
-      <p class="foot-line">On the River Tana, Sagana</p>
+      <p class="foot-line">The Gift of Serenity. On the River Tana, Sagana.</p>
       <a class="btn" href="/plan/">Plan your stay</a>
     </div>
     <div>
